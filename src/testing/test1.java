@@ -44,8 +44,8 @@ public class test1 extends Game  {
 		}
 		
 		g=new Geometry(Model.RectVertices(), Model.RectIndices());
-		material=new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 0.4f);
-		material.setBumpTexture(new Texture("res/castle_wall_slates_diff_8k.jpg"));
+		material=new Material(new Texture("res/wood_planks_old_0087_01.jpg"), 1, 0.4f);
+		material.setBumpTexture(new Texture("res/wood_planks_old_0087_01.jpg"));
 		
 		
 		
@@ -57,7 +57,8 @@ public class test1 extends Game  {
 		lights=new Light();
 		//lights.addLight(1000, 500, 800f,800f, new Vector4f(1,1,1,0));
 		lights.addLight(900, 500, 0f,500f, new Vector4f(1,1f,1f,1));
-		//lights.addLight(1500, 520, 100f,200f, new Vector4f(0,0.2f,1f,1));
+		lights.addLight(1500, 520, 100f,200f, new Vector4f(0.4f,0.4f,1f,1));
+		lights.addLight(1500, 520, 100f,200f, new Vector4f(0.4f,0.4f,1f,1));
 		
 		
 		

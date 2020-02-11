@@ -38,9 +38,9 @@ void main(){
 			b+=lights[i][1][2]*dis;
 			
 		}
-		r/=size;
+		/*r/=size;
 		g/=size;
-		b/=size;
+		b/=size;*/
 		
 		vec4 bumpTexture=vec4((texture2.x+texture2.y+texture2.y)/3,(texture2.x+texture2.y+texture2.y)/3,(texture2.x+texture2.y+texture2.y)/3,1);
 		gl_FragColor=((vec4(r,g,b,1)*pow(bumpTexture+0.5,vec4(bump,bump,bump,bump))+texture-1));

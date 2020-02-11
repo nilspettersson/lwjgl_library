@@ -63,8 +63,6 @@ public class Shader {
 		}
 		
 		
-		//glUniform1i(glGetUniformLocation(program, "sampler"), 0);
-		//glUniform1i(glGetUniformLocation(program, "sampler2"), 1);
 		
 	}
 	
