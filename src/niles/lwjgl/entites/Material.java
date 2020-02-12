@@ -1,10 +1,12 @@
 package niles.lwjgl.entites;
 
+import org.joml.Vector4f;
+
 import niles.lwjgl.util.Texture;
 
 public class Material {
 	
-	private float diffuseColor;
+	private Vector4f diffuseColor;
 	private float roughness;
 	private float bump;
 	private Texture diffuseTexture;
@@ -16,10 +18,12 @@ public class Material {
 		this.bump=bump;
 	}
 	
-	public float getDiffuseColor() {
+	
+	
+	public Vector4f getDiffuseColor() {
 		return diffuseColor;
 	}
-	public void setDiffuseColor(float diffuseColor) {
+	public void setDiffuseColor(Vector4f diffuseColor) {
 		this.diffuseColor = diffuseColor;
 	}
 	public float getRoughness() {

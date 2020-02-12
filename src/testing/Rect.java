@@ -7,19 +7,18 @@ import niles.lwjgl.entites.Position;
 import niles.lwjgl.util.Model;
 import niles.lwjgl.util.Texture;
 
-public class Rect extends Entity {
+public class Rect extends Entity{
+	
+	public static Geometry geometry=new Geometry(Model.RectVertices(), Model.RectIndices());
 	
 	public Rect() {
-		
+		// TODO Auto-generated constructor stub
 	}
 	
-
-	@Override
-	public Geometry createGeometry() {
-		// TODO Auto-generated method stub
-		return new Geometry(Model.RectVertices(), Model.RectIndices());
+	public static Geometry getGeometry() {
+		
+		return geometry;
 	}
-
 	@Override
 	public Position createPosition() {
 		// TODO Auto-generated method stub
@@ -31,6 +30,14 @@ public class Rect extends Entity {
 		// TODO Auto-generated method stub
 		return new Material(new Texture("res/floor.png"), 1, 1);
 	}
+
+
+
+
+	public static void setGeometry(Geometry geometry) {
+		Rect.geometry = geometry;
+	}
+	
 	
 	
 

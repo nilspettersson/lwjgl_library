@@ -5,17 +5,18 @@ public abstract class Entity {
 	private Position position;
 	private Material material;
 	
-	private static Geometry geometry;
 	
 	public Entity() {
-		createGeometry();
-		createPosition();
-		createMaterial();
+		position=createPosition();
+		material=createMaterial();
 	}
 	
-	public abstract Geometry createGeometry();
 	public abstract Position createPosition();
 	public abstract Material createMaterial();
+	
+	public static Geometry getGeometry() {
+		return null;
+	}
 	
 
 	public Position getPosition() {
@@ -34,13 +35,6 @@ public abstract class Entity {
 		this.material = material;
 	}
 
-	public static Geometry getGeometry() {
-		return geometry;
-	}
-
-	public static void setGeometry(Geometry geometry) {
-		Entity.geometry = geometry;
-	}
 	
 	
 	
