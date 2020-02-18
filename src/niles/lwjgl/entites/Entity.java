@@ -6,13 +6,11 @@ public abstract class Entity {
 	private Material material;
 	
 	
-	public Entity() {
-		position=createPosition();
-		material=createMaterial();
+	public Entity(Position position,Material material) {
+		this.position=position;
+		this.material=material;
 	}
 	
-	public abstract Position createPosition();
-	public abstract Material createMaterial();
 	
 	public static Geometry getGeometry() {
 		return null;

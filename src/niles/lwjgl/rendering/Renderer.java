@@ -67,7 +67,7 @@ public class Renderer {
 			shader.setUniform("color", material.getDiffuseColor());
 		}
 		else {
-			shader.setUniform("color", new Vector4f(1));
+			shader.setUniform("color", new Vector4f(0));
 		}
 		shader.setUniform("bump", material.getBump());
 		if(!material.getDiffuseTexture().equals(null)) {

@@ -2,6 +2,7 @@ package niles.lwjgl.loop;
 
 import org.joml.Vector4f;
 
+import niles.lwjgl.rendering.Renderer;
 import niles.lwjgl.world.Camera;
 import niles.lwjgl.world.Window;
 
@@ -9,6 +10,7 @@ public abstract class Game {
 	
 	private Window window;
 	private Camera camera;
+	private Renderer renderer;
 	
 	private Vector4f backgroundColor;
 	private int fps;
@@ -29,6 +31,7 @@ public abstract class Game {
 	public abstract void update();
 	
 	public void loop() {
+		renderer=new Renderer();
 		setup();
 		
 		while(window.shouldUpdate()) {
@@ -87,6 +90,16 @@ public abstract class Game {
 
 	public void setFps(int fps) {
 		this.fps = fps;
+	}
+
+
+	public Renderer getRenderer() {
+		return renderer;
+	}
+
+
+	public void setRenderer(Renderer renderer) {
+		this.renderer = renderer;
 	}
 	
 	

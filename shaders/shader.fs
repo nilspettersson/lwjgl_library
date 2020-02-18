@@ -43,7 +43,7 @@ void main(){
 		b/=size;*/
 		
 		vec4 bumpTexture=vec4((texture2.x+texture2.y+texture2.y)/3,(texture2.x+texture2.y+texture2.y)/3,(texture2.x+texture2.y+texture2.y)/3,1);
-		//gl_FragColor=((vec4(r,g,b,1)*pow(bumpTexture+0.5,vec4(bump,bump,bump,bump))+texture+color-1));
+		gl_FragColor=((vec4(r,g,b,1)*pow(bumpTexture+0.5,vec4(bump,bump,bump,bump))+texture+color-1));
 		
 		
 		vec4 mix=((vec4(r,g,b,1)*pow(bumpTexture,vec4(bump,bump,bump,bump))+texture-1));

@@ -2,13 +2,13 @@ package testing;
 
 import org.joml.Vector4f;
 
-import niles.lwjgl.entites.Geometry;
+import niles.lwjgl.entites.Light;
 import niles.lwjgl.entites.Material;
 import niles.lwjgl.entites.Position;
 import niles.lwjgl.loop.Game;
 import niles.lwjgl.rendering.Renderer;
-import niles.lwjgl.util.Model;
 import niles.lwjgl.util.Texture;
+import niles.lwjgl.world.MouseCursor;
 
 public class test2 extends Game{
 
@@ -21,32 +21,34 @@ public class test2 extends Game{
 		// TODO Auto-generated method stub
 		new test2(1920, 1080, true, new Vector4f(0,0,0,1), 120);
 	}
-
-	Renderer renderer;
 	Rect rect;
-	
-	Material material;
-	Position pos;
-	Geometry gem;
-	
+	Light lights;
+	MouseCursor mouse;
 	@Override
 	public void setup() {
-		renderer=new Renderer();
 		
-		material=new Material(null, 1, 1);
-		material.setDiffuseColor(new Vector4f(1,1,1,1));
-		pos=new Position(0, 0, 100);
-		gem=new Geometry(Model.RectVertices(), Model.RectIndices());
 		
-		rect=new Rect();
 		
+		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 1.1f));
+		lights=new Light();
+		lights.addLight(700, 400, 1, 400, new Vector4f(1f,0.4f,0.4f,1));
+		lights.addLight(100, 400, 40, 200, new Vector4f(0.3f,1f,1f,1));
+		lights.addLight(1500, 400, 40, 200, new Vector4f(0.6f,0.6f,1f,1));
+		lights.addLight(1000, 100, 40, 200, new Vector4f(0.4f,1f,0.2f,1));
+		lights.addLight(300, 900, 40, 200, new Vector4f(1f,0.3f,0.1f,1));
+		
+		mouse=new MouseCursor();
 	}
-
+	
 	@Override
 	public void update() {
+				
+		lights.moveTo(0, mouse.getMouseMovement(getWindow(), 1).x+1920/2, -mouse.getMouseMovement(getWindow(), 1).y+1080/2, 20);
 		
-		renderer.bindShader();
-		renderer.render(getCamera(), rect);
+		getRenderer().bindShader();
+		
+		getRenderer().init(lights);
+		getRenderer().render(getCamera(), rect);
 		
 	}
 
