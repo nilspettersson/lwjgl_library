@@ -8,8 +8,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
-public class MouseCursor {
-	
+public class Mouse {
 	
      private double newX = 1920/4;
      private double newY = 1080/4;
@@ -21,13 +20,13 @@ public class MouseCursor {
      private float myX=0;
      private float myY=0;
      
-     public MouseCursor() {
+     public Mouse() {
     	 
 	 }
      
      
      
-     public void setMouseVisible(Window win, boolean visible) {
+     public void isVisible(Window win, boolean visible) {
     	 if(!visible) {
     		 glfwSetInputMode(win.getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     	 }

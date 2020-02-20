@@ -6,9 +6,8 @@ import niles.lwjgl.entites.Light;
 import niles.lwjgl.entites.Material;
 import niles.lwjgl.entites.Position;
 import niles.lwjgl.loop.Game;
-import niles.lwjgl.rendering.Renderer;
 import niles.lwjgl.util.Texture;
-import niles.lwjgl.world.MouseCursor;
+import niles.lwjgl.world.Mouse;
 
 public class test2 extends Game{
 
@@ -23,12 +22,9 @@ public class test2 extends Game{
 	}
 	Rect rect;
 	Light lights;
-	MouseCursor mouse;
+	Mouse mouse;
 	@Override
 	public void setup() {
-		
-		
-		
 		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 2.1f));
 		lights=new Light();
 		lights.addLight(700, 400, 1, 200, new Vector4f(1f,0.4f,0.4f,1));
@@ -37,18 +33,13 @@ public class test2 extends Game{
 		lights.addLight(1000, 100, 40, 100, new Vector4f(0.4f,1f,0.2f,1));
 		lights.addLight(300, 900, 40, 100, new Vector4f(1f,0.3f,0.1f,1));
 		
-		mouse=new MouseCursor();
+		mouse=new Mouse();
 	}
 	
 	@Override
 	public void update() {
-				
-		//lights.moveTo(0, mouse.getMouseMovement(getWindow(), 1).x+1920/2, -mouse.getMouseMovement(getWindow(), 1).y+1080/2, 40);
-		
-		
-		mouse.moveCamera(getWindow(), getCamera(), 1);
-		mouse.setMouseVisible(getWindow(), false);
-		
+		mouse.moveCamera(getWindow(), getCamera(), 40f);
+		mouse.isVisible(getWindow(), false);
 		
 		getRenderer().bindShader();
 		
