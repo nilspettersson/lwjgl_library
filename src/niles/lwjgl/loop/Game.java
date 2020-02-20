@@ -5,6 +5,7 @@ import org.joml.Vector4f;
 import niles.lwjgl.rendering.Renderer;
 import niles.lwjgl.world.Camera;
 import niles.lwjgl.world.Window;
+import testing.test2;
 
 public abstract class Game {
 	
@@ -24,6 +25,19 @@ public abstract class Game {
 		
 		loop();
 	}
+	
+	public Game() {
+		window=new Window(1920, 1080, true);
+		camera=new Camera(1920, 1080);
+		
+		this.backgroundColor=new Vector4f(0,0,0,1);
+		this.fps=120;
+		
+		loop();
+	}
+	
+	
+	
 	
 	
 	public abstract void setup();

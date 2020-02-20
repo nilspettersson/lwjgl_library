@@ -10,15 +10,15 @@ import niles.lwjgl.util.Texture;
 import niles.lwjgl.world.Mouse;
 
 public class test2 extends Game{
-
-	public test2(int width, int height, boolean fullsceen, Vector4f backgroundColor, int fps) {
-		super(width, height, fullsceen, backgroundColor, fps);
+	
+	public test2() {
+		
 		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new test2(1920, 1080, true, new Vector4f(0,0,0,1), 120);
+		new test2();
+		
 	}
 	Rect rect;
 	Light lights;
@@ -38,7 +38,7 @@ public class test2 extends Game{
 	
 	@Override
 	public void update() {
-		mouse.moveCamera(getWindow(), getCamera(), 40f);
+		mouse.moveCamera(getWindow(), getCamera(), 0.1f);
 		mouse.isVisible(getWindow(), false);
 		
 		getRenderer().bindShader();
