@@ -3,6 +3,8 @@ package niles.lwjgl.rendering;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glUniform1i;
 
+import java.util.ArrayList;
+
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
@@ -44,8 +46,18 @@ public class Renderer {
 	}
 	
 	
-	public void init(Light lights) {
-		shader.setUniform("lights", lights.getPositions());
+	public void init(Camera camera,Light lights) {
+		//shader.setUniform("lights", lights.getPositions());
+		
+		ArrayList<Matrix4f>positionsRelative=new ArrayList<Matrix4f>();
+		
+		for(int i=0;i<lights.getPositions().size();i++) {
+			positionsRelative.add(new Matrix4f(lights.getPositions().get(i).m00, lights.getPositions().get(i).m01, lights.getPositions().get(i).m02, lights.getPositions().get(i).m03, lights.getPositions().get(i).m10, lights.getPositions().get(i).m11, lights.getPositions().get(i).m12, lights.getPositions().get(i).m13, lights.getPositions().get(i).m20, lights.getPositions().get(i).m21, lights.getPositions().get(i).m22, lights.getPositions().get(i).m23, lights.getPositions().get(i).m30, lights.getPositions().get(i).m31, lights.getPositions().get(i).m32, lights.getPositions().get(i).m33));
+			positionsRelative.get(i).m00+=camera.getProjection().m30*1920/2;
+			positionsRelative.get(i).m01+=camera.getProjection().m31*1080/2;
+		}
+		
+		shader.setUniform("lights", positionsRelative);
 		shader.setUniform("size", lights.getPositions().size());
 		
 	}
@@ -70,7 +82,7 @@ public class Renderer {
 			shader.setUniform("color", new Vector4f(0));
 		}
 		shader.setUniform("bump", material.getBump());
-		if(!material.getDiffuseTexture().equals(null)) {
+		if(material.getDiffuseTexture()!=null) {
 			glUniform1i(glGetUniformLocation(shader.getProgram(), "sampler1"), 0);
 			material.getDiffuseTexture().bind(0);
 		}

@@ -18,6 +18,11 @@ public class Material {
 		this.bump=bump;
 	}
 	
+	public Material(Vector4f diffuseColor,float roughness, float bump) {
+		this.roughness=roughness;
+		this.bump=bump;
+		this.diffuseColor=diffuseColor;
+	}
 	
 	
 	public Vector4f getDiffuseColor() {

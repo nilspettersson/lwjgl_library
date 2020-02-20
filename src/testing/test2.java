@@ -29,13 +29,13 @@ public class test2 extends Game{
 		
 		
 		
-		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 1.1f));
+		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 2.1f));
 		lights=new Light();
-		lights.addLight(700, 400, 1, 400, new Vector4f(1f,0.4f,0.4f,1));
-		lights.addLight(100, 400, 40, 200, new Vector4f(0.3f,1f,1f,1));
-		lights.addLight(1500, 400, 40, 200, new Vector4f(0.6f,0.6f,1f,1));
-		lights.addLight(1000, 100, 40, 200, new Vector4f(0.4f,1f,0.2f,1));
-		lights.addLight(300, 900, 40, 200, new Vector4f(1f,0.3f,0.1f,1));
+		lights.addLight(700, 400, 1, 200, new Vector4f(1f,0.4f,0.4f,1));
+		lights.addLight(100, 400, 40, 100, new Vector4f(0.3f,1f,1f,1));
+		lights.addLight(1500, 400, 40, 100, new Vector4f(0.6f,0.6f,1f,1));
+		lights.addLight(1000, 100, 40, 100, new Vector4f(0.4f,1f,0.2f,1));
+		lights.addLight(300, 900, 40, 100, new Vector4f(1f,0.3f,0.1f,1));
 		
 		mouse=new MouseCursor();
 	}
@@ -43,12 +43,19 @@ public class test2 extends Game{
 	@Override
 	public void update() {
 				
-		lights.moveTo(0, mouse.getMouseMovement(getWindow(), 1).x+1920/2, -mouse.getMouseMovement(getWindow(), 1).y+1080/2, 20);
+		//lights.moveTo(0, mouse.getMouseMovement(getWindow(), 1).x+1920/2, -mouse.getMouseMovement(getWindow(), 1).y+1080/2, 40);
+		
+		
+		mouse.moveCamera(getWindow(), getCamera(), 1);
+		mouse.setMouseVisible(getWindow(), false);
+		
 		
 		getRenderer().bindShader();
 		
-		getRenderer().init(lights);
+		getRenderer().init(getCamera(),lights);
 		getRenderer().render(getCamera(), rect);
+		
+		getWindow().update(120);
 		
 	}
 
