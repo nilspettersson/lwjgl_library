@@ -1,9 +1,5 @@
-package testing;
+package niles.lwjgl.entites;
 
-import niles.lwjgl.entites.Entity;
-import niles.lwjgl.entites.Geometry;
-import niles.lwjgl.entites.Material;
-import niles.lwjgl.entites.Position;
 import niles.lwjgl.util.Model;
 import niles.lwjgl.util.Texture;
 

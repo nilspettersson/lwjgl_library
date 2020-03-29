@@ -12,11 +12,11 @@ import niles.lwjgl.entites.Entity;
 import niles.lwjgl.entites.Geometry;
 import niles.lwjgl.entites.Light;
 import niles.lwjgl.entites.Material;
+import niles.lwjgl.entites.Rect;
 import niles.lwjgl.util.Model;
 import niles.lwjgl.util.Shader;
 import niles.lwjgl.util.Texture;
 import niles.lwjgl.world.Camera;
-import testing.Rect;
 
 public class Renderer {
 	

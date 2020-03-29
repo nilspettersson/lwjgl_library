@@ -36,10 +36,6 @@ public abstract class Game {
 		loop();
 	}
 	
-	
-	
-	
-	
 	public abstract void setup();
 	
 	public abstract void update();
@@ -51,20 +47,14 @@ public abstract class Game {
 		while(window.shouldUpdate()) {
 			window.drawInit(backgroundColor);
 			
-			
 			update();
-			
 			
 			window.update(fps);
 			window.clean();
 			
 		}
 		
-		
-		
 	}
-	
-	
 
 	public Window getWindow() {
 		return window;
