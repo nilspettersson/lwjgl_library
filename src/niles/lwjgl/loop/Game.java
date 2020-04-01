@@ -14,14 +14,14 @@ public abstract class Game {
 	private Renderer renderer;
 	
 	private Vector4f backgroundColor;
-	private int fps;
+	private int fpsCap;
 	
-	public Game(int width,int height,boolean fullsceen,Vector4f backgroundColor,int fps) {
+	public Game(int width,int height,boolean fullsceen,Vector4f backgroundColor,int fpsCap) {
 		window=new Window(width, height, fullsceen);
 		camera=new Camera(width, height);
 		
 		this.backgroundColor=backgroundColor;
-		this.fps=fps;
+		this.fpsCap=fpsCap;
 		
 		loop();
 	}
@@ -31,7 +31,7 @@ public abstract class Game {
 		camera=new Camera(1920, 1080);
 		
 		this.backgroundColor=new Vector4f(0,0,0,1);
-		this.fps=120;
+		this.fpsCap=120;
 		
 		loop();
 	}
@@ -49,8 +49,8 @@ public abstract class Game {
 			
 			update();
 			
-			window.update(fps);
 			window.clean();
+			window.update(fpsCap);
 			
 		}
 		
@@ -86,14 +86,14 @@ public abstract class Game {
 
 
 
-	public int getFps() {
-		return fps;
+	public int getFpsCap() {
+		return fpsCap;
 	}
 
 
 
-	public void setFps(int fps) {
-		this.fps = fps;
+	public void setFpsCap(int fps) {
+		this.fpsCap = fps;
 	}
 
 

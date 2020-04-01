@@ -24,9 +24,11 @@ public class test2 extends Game{
 	Mouse mouse;
 	@Override
 	public void setup() {
+		
+		
 		setBackgroundColor(new Vector4f(1));
 		
-		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/castle_wall_slates_diff_8k.jpg"), 1, 2.1f));
+		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/floor.png"), 1, 2.1f));
 		lights=new Light();
 		lights.addLight(700, 400, 1, 200, new Vector4f(1f,0.4f,0.4f,1));
 		lights.addLight(100, 400, 40, 100, new Vector4f(0.3f,1f,1f,1));
@@ -35,21 +37,21 @@ public class test2 extends Game{
 		lights.addLight(300, 900, 40, 100, new Vector4f(1f,0.3f,0.1f,1));
 		
 		mouse=new Mouse();
+		getWindow().setVSync(false);
 	}
 	
 	@Override
 	public void update() {
-		/*mouse.moveCamera(getWindow(), getCamera(), 0.1f);
+		mouse.moveCamera(getWindow(), getCamera(), 1f);
 		mouse.isVisible(getWindow(), false);
 		
 		getRenderer().bindShader();
 		
 		getRenderer().init(getCamera(),lights);
-		getRenderer().render(getCamera(), rect);*/
+		getRenderer().render(getCamera(), rect);
 		
-		
-		
-		getWindow().update(120);
+		System.out.println(getWindow().getFps());
+		setFpsCap(240);
 		
 	}
 

@@ -167,7 +167,6 @@ public class Window {
 		cap-=dif;
 		}
 		
-		
 		if(cap<=0){
 			cap=1;
 		}
@@ -182,7 +181,7 @@ public class Window {
 		if(dif<(1.0/fpsCap)*1000) {
 			cap=(1000/cap);
 			fps=(int) cap;
-			//System.out.println(cap);
+			//System.out.println(fps);
 		}
 		else if(dif>=(1.0/fpsCap)*1000) {
 			dif=(1000/dif);
