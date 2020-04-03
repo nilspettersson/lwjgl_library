@@ -1,5 +1,7 @@
 package testing;
 
+import java.util.ArrayList;
+
 import org.joml.Vector4f;
 
 import niles.lwjgl.entites.Light;
@@ -19,16 +21,18 @@ public class test2 extends Game{
 	public static void main(String[] args) {
 		new test2();
 	}
-	Rect rect;
+	ArrayList<Rect>rects;
 	Light lights;
 	Mouse mouse;
 	@Override
 	public void setup() {
-		
+		rects=new ArrayList<>();
 		
 		setBackgroundColor(new Vector4f(1));
-		
-		rect=new Rect(new Position(0, 0, 1000),new Material(new Texture("res/floor.png"), 1, 2.1f));
+		Texture texture=new Texture("res/floor.png");
+		for(int i=0;i<10;i++) {
+			rects.add(new Rect(new Position((int)(Math.random()*1000)-500, (int)(Math.random()*1000)-500, 16),new Material(texture, (float)Math.random()*40, (float)Math.random()*2)));
+		}
 		lights=new Light();
 		lights.addLight(700, 400, 1, 200, new Vector4f(1f,0.4f,0.4f,1));
 		lights.addLight(100, 400, 40, 100, new Vector4f(0.3f,1f,1f,1));
@@ -48,7 +52,10 @@ public class test2 extends Game{
 		getRenderer().bindShader();
 		
 		getRenderer().init(getCamera(),lights);
-		getRenderer().render(getCamera(), rect);
+		
+		for(int i=0;i<rects.size();i++) {
+			getRenderer().render(getCamera(), rects.get(i));
+		}
 		
 		System.out.println(getWindow().getFps());
 		setFpsCap(240);

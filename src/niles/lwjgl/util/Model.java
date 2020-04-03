@@ -113,8 +113,6 @@ public class Model {
 	
 	public void render() {
 		
-		
-		
 		glBindBuffer(GL_ARRAY_BUFFER,v_id);
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 		
@@ -129,15 +127,12 @@ public class Model {
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		//glBindBuffer(GL_ARRAY_BUFFER,0);
 		
-		
-		
 	}
 	
 	public static void init() {
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 	}
-	
 	
 	private FloatBuffer createBuffer(float[] data) {
 		FloatBuffer buffer=BufferUtils.createFloatBuffer(data.length);
@@ -147,16 +142,12 @@ public class Model {
 		return buffer;
 	}
 
-
 	public float[] getVertices() {
 		return vertices;
 	}
-
 
 	public void setVertices(float[] vertices) {
 		this.vertices = vertices;
 	}
 	
-	
-
 }

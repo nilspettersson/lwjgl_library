@@ -42,7 +42,7 @@ public class Renderer {
 	public void render(Camera camera, Rect entity) {
 		shader.setUniform("projection", camera.getProjection().mul(entity.getPosition().getPosition()));
 		applyMaterialTexture(entity.getMaterial());
-		entity.getGeometry().getModel().render();
+		Rect.getGeometry().getModel().render();
 	}
 	
 	
