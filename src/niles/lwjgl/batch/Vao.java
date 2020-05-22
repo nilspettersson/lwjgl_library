@@ -18,84 +18,7 @@ public class Vao {
 	private int t_id;
 	private int i_id;
 	
-	
-	
-	public static Vao CreateModel(boolean xyCenter) {
-		float[] verticesTemp;
-		if(xyCenter) {
-			verticesTemp=new float[] {
-			-1f,1f,0,
-			1f,1f,0,
-			1f,-1f,0,
-			-1f,-1f,0
-			};
-		}
-		else {
-			verticesTemp=new float[] {
-					0f,0f,0,
-					1f,0f,0,
-					1f,-1f,0,
-					0f,-1f,0,
-					
-			};
-		}
-		
-		
-		float[] tex_coordsTemp=new float[] {
-				0,0,
-				1,0,
-				1,1,
-				0,1
-		};
-		int[] indicesTemp=new int[] {
-				0,1,2,
-				2,3,0
-		};
-		
-		return new Vao(verticesTemp, tex_coordsTemp, indicesTemp);
-	}
-	
-	
-	public static float[] RectVertices() {
-		float[] verticesTemp;
-		verticesTemp=new float[] {
-			-1f,1f,0,
-			1f,1f,0,
-			1f,-1f,0,
-			-1f,-1f,0
-		};
-		return verticesTemp;
-	}
-	
-	public static int[] RectIndices() {
-		int[] indicesTemp=new int[] {
-				0,1,2,
-				2,3,0
-		};
-		return indicesTemp;
-	}
-	
-	
-	
-	
-	
-	
-	public Vao(float[] vertices2, float[] tex_coords2, int[] indices2) {
-		
-		/*float[] vertices=new float[] {
-				-1.5f, -0.5f, 0,
-				-0.5f, -0.5f, 0,
-				-0.5f, 0.5f, 0,
-				-1.5f, 0.5f, 0,
-				
-				 0.5f, -0.5f, 0,
-				 1.5f, -0.5f, 0,
-				 1.5f, 0.5f, 0,
-				 0.5f, 0.5f, 0,
-				
-		};*/
-		
-		
+	public Vao(int maxRectangles) {
 		
 		
 		
@@ -106,21 +29,34 @@ public class Vao {
 				1,1,
 				0,1
 		};
-		int[] indices=new int[] {
+		/*int[] indices=new int[] {
 				0,1,2,
 				2,3,0,
 				
 				4,5,6,
-				6,7,4
-		};
+				6,7,4,
+				
+		};*/
+		
+		int[] indices=new int[maxRectangles * 6];
+		int offset = 0;
+		for(int i = 0; i < maxRectangles; i ++) {
+			indices[i * 6  + 0] = 0 + offset;
+			indices[i * 6  + 1] = 1 + offset;
+			indices[i * 6  + 2] = 2 + offset;
+			
+			indices[i * 6  + 3] = 2 + offset;
+			indices[i * 6  + 4] = 3 + offset;
+			indices[i * 6  + 5] = 0 + offset;
+			offset += 4;
+		}
 		
 		draw_count=indices.length;
 		
 		
 		v_id=glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, v_id);
-		//glBufferData(GL_ARRAY_BUFFER, createBuffer(vertices), GL_STATIC_DRAW);
-		glBufferData(GL_ARRAY_BUFFER, 10000, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 224 * maxRectangles, GL_DYNAMIC_DRAW);
 		
 		
 		t_id=glGenBuffers();

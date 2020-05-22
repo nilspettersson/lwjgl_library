@@ -19,7 +19,7 @@ public class Batch_testing extends Game{
 	@Override
 	public void setup() {
 		shader = new Shader("batch_shader");
-		batch = new Vao(null, null, null);
+		batch = new Vao(100);
 	}
 
 	@Override
