@@ -16,10 +16,34 @@ public class Batch_testing extends Game{
 	Shader shader;
 	Vao batch;
 	
+	Rect[] rects;
+	
+	float[] vertices;
+	
 	@Override
 	public void setup() {
 		shader = new Shader("batch_shader");
-		batch = new Vao(100);
+		batch = new Vao(1000000);
+		
+		rects = new Rect[100000];
+		for(int i = 0; i<rects.length; i++) {
+			rects[i] = new Rect((float)(Math.random())-0.5f, (float)(Math.random())-0.5f, 0.005f, 0.005f, new Vector4f(0, 1, 1, 1));
+		}
+		
+		
+		vertices = new float[7 * 4 * rects.length];
+		
+		int index = 0;
+		for(int i = 0; i<rects.length; i++) {
+			float[] temp = rects[i].toArray();
+			System.arraycopy(temp, 0, vertices, index, temp.length);
+			index += (7 * 4);
+		}
+		
+		glBindBuffer(GL_ARRAY_BUFFER, batch.getV_id());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+		
+		getWindow().setVSync(false);
 	}
 
 	@Override
@@ -28,31 +52,24 @@ public class Batch_testing extends Game{
 		
 		
 		
-		Rect[] rects = new Rect[2];
-		rects[0] = new Rect(0.1f, 0f, 0.1f, 0.1f, new Vector4f(0, 1, 1, 1));
-		rects[1] = new Rect(-0.5f, 0, 0.1f, 0.1f, new Vector4f(1, 0, 1, 1));
-		
-		
-		float[] vertices = new float[7 * 4 * rects.length];
-		
-		int index = 0;
-		for(int i = 0; i<rects.length; i++) {
-			float[] temp = rects[i].toArray();
-			for(int j = 0; j < temp.length; j++) {
-				vertices[index + j] = temp[j];
-				
-			}
-			index += (7 * 4);
+		float[] send = new float[7*4*10000];
+		for(int i = 0; i<send.length; i++) {
+			vertices[i]+=0.001f;
+			send[i]=vertices[i];
 		}
 		
+		
+		
+		
+		
+		
 		glBindBuffer(GL_ARRAY_BUFFER, batch.getV_id());
-		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, send);
 		
 		
 		batch.render();
 		
-		
-		getWindow().update(120);
+		setFpsCap(120);
 		System.out.println(getWindow().getFps());
 		
 	}
