@@ -34,6 +34,7 @@ public class example extends Game {
 		getRenderer().init();
 		getRenderer().render(getCamera(), rect);
 		
+		System.out.println(getWindow().getFps());
 	}
 
 }

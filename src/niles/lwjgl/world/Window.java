@@ -50,7 +50,7 @@ public class Window {
 		
 		
 		
-		glfwShowWindow(window);
+		
 		
 		
 		
@@ -64,10 +64,12 @@ public class Window {
 		
 		input=new Input(this);
 		
+		glfwShowWindow(window);
 	}
 	
 	
 	public void clean() {
+		
 		glfwSwapBuffers(window);
 		
 		

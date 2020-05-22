@@ -31,7 +31,7 @@ public class test2 extends Game{
 		setBackgroundColor(new Vector4f(1));
 		Texture texture=new Texture("res/floor.png");
 		for(int i=0;i<1;i++) {
-			rects.add(new Rect(new Position((int)(Math.random()*1000)-500, (int)(Math.random()*1000)-500, 1600),new Material(texture, (float)Math.random()*40, (float)Math.random()*2)));
+			rects.add(new Rect(new Position((int)(Math.random()*1000)-500, (int)(Math.random()*1000)-500, 460),new Material(texture, (float)Math.random()*40, (float)Math.random()*2)));
 		}
 		lights=new Light();
 		lights.addLight(700, 400, 1, 200, new Vector4f(1f,0.4f,0.4f,1));
@@ -59,7 +59,7 @@ public class test2 extends Game{
 		}
 		
 		System.out.println(getWindow().getFps());
-		setFpsCap(240);
+		setFpsCap(120);
 		
 	}
 
