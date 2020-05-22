@@ -23,9 +23,7 @@ public class Rect {
 			float[] temp = vertices[i].toArray();
 			for(int j = 0; j < temp.length; j++) {
 				array[index + j] = temp[j];
-				System.out.print(temp[j] +", ");
 			}
-			System.out.println("");
 			index += 7;
 		}
 		

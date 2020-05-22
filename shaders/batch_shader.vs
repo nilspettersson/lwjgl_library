@@ -1,8 +1,8 @@
-#version 120
+#version 330
 
-attribute vec3 vertices;
-attribute vec4 a_color;
-attribute vec2 textures;
+layout (location = 0) in vec3 vertices;
+layout (location = 1) in vec4 a_color;
+layout (location = 2) in vec2 textures;
 
 varying vec2 tex_coords;
 varying vec4 color;

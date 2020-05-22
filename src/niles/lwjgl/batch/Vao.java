@@ -95,22 +95,7 @@ public class Vao {
 				
 		};*/
 		
-		Rect[] rects = new Rect[1];
-		rects[0] = new Rect(0.1f, 0f, 0.1f, 0.1f, new Vector4f(0, 1, 1, 1));
-		//rects[1] = new Rect(-0.5f, 0, 0.1f, 0.1f, new Vector4f(1, 1, 1, 1));
 		
-		
-		float[] vertices = new float[7 * 4 * rects.length];
-		
-		int index = 0;
-		for(int i = 0; i<rects.length; i++) {
-			float[] temp = rects[i].toArray();
-			for(int j = 0; j < temp.length; j++) {
-				vertices[index + j] = temp[j];
-				
-			}
-			index += (7 * 4);
-		}
 		
 		
 		
@@ -125,8 +110,8 @@ public class Vao {
 				0,1,2,
 				2,3,0,
 				
-				/*4,5,6,
-				6,7,4*/
+				4,5,6,
+				6,7,4
 		};
 		
 		draw_count=indices.length;
@@ -134,7 +119,8 @@ public class Vao {
 		
 		v_id=glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, v_id);
-		glBufferData(GL_ARRAY_BUFFER, createBuffer(vertices), GL_STATIC_DRAW);
+		//glBufferData(GL_ARRAY_BUFFER, createBuffer(vertices), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 10000, GL_DYNAMIC_DRAW);
 		
 		
 		t_id=glGenBuffers();
@@ -189,6 +175,39 @@ public class Vao {
 		
 		return buffer;
 	}
+
+
+	public int getV_id() {
+		return v_id;
+	}
+
+
+	public void setV_id(int v_id) {
+		this.v_id = v_id;
+	}
+
+
+	public int getT_id() {
+		return t_id;
+	}
+
+
+	public void setT_id(int t_id) {
+		this.t_id = t_id;
+	}
+
+
+	public int getI_id() {
+		return i_id;
+	}
+
+
+	public void setI_id(int i_id) {
+		this.i_id = i_id;
+	}
+	
+	
+	
 	
 }
 
