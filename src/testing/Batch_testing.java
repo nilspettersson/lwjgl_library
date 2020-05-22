@@ -15,20 +15,20 @@ public class Batch_testing extends Game{
 	public static void main(String[] args) {
 		new Batch_testing();
 	}
-
+	Shader shader;
+	Vao batch;
+	
 	@Override
 	public void setup() {
-		// TODO Auto-generated method stub
-		
+		shader = new Shader("batch_shader");
+		batch = new Vao(null, null, null);
 	}
 
 	@Override
 	public void update() {
-		
-		Shader shader = new Shader("batch_shader");
 		shader.bind();
 		
-		Vao batch = new Vao(null, null, null);
+		
 		batch.render();
 		
 		

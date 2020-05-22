@@ -11,6 +11,12 @@ public class Vertex {
 	public Vertex(Vector3f position, Vector4f color) {
 		this.position = position;
 		this.color = color;
+		
+		
+	}
+	
+	public float[] toArray() {
+		return new float[] {position.x, position.y, position.z, color.x, color.y, color.z, color.w};
 	}
 
 	public Vector3f getPosition() {

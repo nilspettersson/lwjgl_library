@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL40.*;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 public class Vao {
 	
@@ -81,7 +82,7 @@ public class Vao {
 	
 	public Vao(float[] vertices2, float[] tex_coords2, int[] indices2) {
 		
-		float[] vertices=new float[] {
+		/*float[] vertices=new float[] {
 				-1.5f, -0.5f, 0,
 				-0.5f, -0.5f, 0,
 				-0.5f, 0.5f, 0,
@@ -92,7 +93,26 @@ public class Vao {
 				 1.5f, 0.5f, 0,
 				 0.5f, 0.5f, 0,
 				
-		};
+		};*/
+		
+		Rect[] rects = new Rect[1];
+		rects[0] = new Rect(0.1f, 0f, 0.1f, 0.1f, new Vector4f(0, 1, 1, 1));
+		//rects[1] = new Rect(-0.5f, 0, 0.1f, 0.1f, new Vector4f(1, 1, 1, 1));
+		
+		
+		float[] vertices = new float[7 * 4 * rects.length];
+		
+		int index = 0;
+		for(int i = 0; i<rects.length; i++) {
+			float[] temp = rects[i].toArray();
+			for(int j = 0; j < temp.length; j++) {
+				vertices[index + j] = temp[j];
+				
+			}
+			index += (7 * 4);
+		}
+		
+		
 		
 		
 		float[] tex_coords=new float[] {
@@ -105,8 +125,8 @@ public class Vao {
 				0,1,2,
 				2,3,0,
 				
-				4,5,6,
-				6,7,4
+				/*4,5,6,
+				6,7,4*/
 		};
 		
 		draw_count=indices.length;
@@ -140,10 +160,13 @@ public class Vao {
 	public void render() {
 		
 		glBindBuffer(GL_ARRAY_BUFFER,v_id);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, 7 * 4, 0);
+		
+		glVertexAttribPointer(1, 4, GL_FLOAT, false, 7 * 4, 12);
+		
 		
 		glBindBuffer(GL_ARRAY_BUFFER,t_id);
-		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_id);
 		
@@ -156,6 +179,7 @@ public class Vao {
 	public static void init() {
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
 	}
 	
 	private FloatBuffer createBuffer(float[] data) {
