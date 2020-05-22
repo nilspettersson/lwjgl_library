@@ -46,9 +46,7 @@ public class Renderer {
 	}
 	
 	
-	public void init(Camera camera,Light lights) {
-		//shader.setUniform("lights", lights.getPositions());
-		
+	public void useLights(Camera camera,Light lights) {
 		ArrayList<Matrix4f>positionsRelative=new ArrayList<Matrix4f>();
 		
 		for(int i=0;i<lights.getPositions().size();i++) {

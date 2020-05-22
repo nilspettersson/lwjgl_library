@@ -52,7 +52,7 @@ public class test2 extends Game{
 		
 		getRenderer().bindShader();
 		
-		getRenderer().init(getCamera(),lights);
+		getRenderer().useLights(getCamera(),lights);
 		
 		for(int i=0;i<rects.size();i++) {
 			getRenderer().render(getCamera(), rects.get(i));
