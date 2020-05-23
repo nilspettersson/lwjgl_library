@@ -25,18 +25,17 @@ public class Batch_testing extends Game{
 	
 	Light lights;
 	
-	Texture t;
 	
 	@Override
 	public void setup() {
-		
-		t = new Texture("res/floor.png");
-		
 		objects = new Batch(60000);
 		
-		for(int i = 0; i<200; i++) {
-			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 100f, 100f, new Vector4f(0, 0, 0, 1), 1);
+		for(int i = 0; i<20000; i++) {
+			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 10f, 10f, new Vector4f(1, 1, 1, 1), 0);
 		}
+		
+		
+		
 		
 		renderer = new BatchRenderer();
 		
@@ -59,7 +58,7 @@ public class Batch_testing extends Game{
 		
 		renderer.bindShader();
 		
-		t.bind(0);
+		
 		
 		objects.updateAllValues();
 		

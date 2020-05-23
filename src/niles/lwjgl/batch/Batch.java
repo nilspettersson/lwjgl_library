@@ -2,15 +2,22 @@ package niles.lwjgl.batch;
 
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
+
+import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL15.*;
 
 import org.joml.Vector4f;
+
+import niles.lwjgl.util.Texture;
 
 public class Batch {
 	
 	private float[] vertices;
 	private int[] rectIds;
 	private int index;
+	
+	private ArrayList<Texture>textures;
 	
 	private Vao vao;
 	
@@ -19,9 +26,20 @@ public class Batch {
 		rectIds = new int[size];
 		
 		vao = new Vao(size);
+		textures = new ArrayList<Texture>();
 		
 		index = 0;
 	}
+	
+	public void addTexture(Texture texture) {
+		textures.add(texture);
+	}
+	public void bindTextures() {
+		for(int i = 0; i < textures.size(); i++) {
+			textures.get(i).bind(i);
+		}
+	}
+	
 	
 	public void addRect(float x, float y, float width, float height, Vector4f color, int textureId) {
 		Rect rect = new Rect(x, y, width, height, color, textureId);

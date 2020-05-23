@@ -1,5 +1,8 @@
 package niles.lwjgl.rendering;
 
+import static org.lwjgl.opengl.GL20.glGetUniformLocation;
+import static org.lwjgl.opengl.GL20.glUniform1iv;
+
 import java.util.ArrayList;
 
 import org.joml.Matrix4f;
@@ -19,7 +22,9 @@ public class BatchRenderer {
 	
 	public void bindShader() {
 		shader.bind();
+		glUniform1iv(glGetUniformLocation(shader.getProgram(), "sampler"), new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 	}
+	
 	
 	
 	public void renderBatch(Camera camera, Batch batch) {
