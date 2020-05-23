@@ -30,7 +30,6 @@ public class Batch_testing extends Game{
 	
 	Light lights;
 	
-	Mouse mouse;
 	
 	@Override
 	public void setup() {
@@ -39,7 +38,7 @@ public class Batch_testing extends Game{
 		objects = new Batch(60000);
 		
 		for(int i = 0; i<60000; i++) {
-			objects.addRect((float)(Math.random()*800*4)-400*4, (float)(Math.random()*800*4)-400*4, 2f, 2f, new Vector4f(1, 1, 1, 1));
+			objects.addRect((float)(Math.random()*800*4)-400*4, (float)(Math.random()*800*4)-400*4, 1f, 1f, new Vector4f(1, 1, 1, 1));
 		}
 		
 		renderer = new BatchRenderer();
@@ -54,7 +53,6 @@ public class Batch_testing extends Game{
 		lights.addLight(-200, 500, 40, 120, new Vector4f(1f,0.3f,0.1f,1));
 		
 		
-		mouse = new Mouse();
 		
 		getWindow().setVSync(false);
 	}
@@ -62,8 +60,8 @@ public class Batch_testing extends Game{
 	@Override
 	public void update() {
 		shader.bind();
-		mouse.moveCamera(getWindow(), getCamera(), 1);
-		mouse.isVisible(getWindow(), false);
+		Mouse.moveCamera(getWindow(), getCamera(), 1);
+		Mouse.isVisible(getWindow(), false);
 		
 		//objects.setY(0, objects.getY(0)+1f);
 		//objects.setX(0, objects.getX(0)+1f);

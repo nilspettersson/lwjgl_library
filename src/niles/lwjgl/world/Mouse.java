@@ -10,15 +10,15 @@ import org.lwjgl.BufferUtils;
 
 public class Mouse {
 	
-     private double newX = 1920/4;
-     private double newY = 1080/4;
+     static double newX = 1920/4;
+     static double newY = 1080/4;
 
-     private double prevX = 0;
-     private double prevY = 0;
+     static double prevX = 0;
+     static double prevY = 0;
 
      
-     private float myX=0;
-     private float myY=0;
+     static float myX=0;
+     static float myY=0;
      
      public Mouse() {
     	 
@@ -26,7 +26,7 @@ public class Mouse {
      
      
      
-     public void isVisible(Window win, boolean visible) {
+     public static void isVisible(Window win, boolean visible) {
     	 if(!visible) {
     		 glfwSetInputMode(win.getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     	 }
@@ -36,14 +36,14 @@ public class Mouse {
      }
      
      
-     public void setMouseLocation(Window win, float x,float y) {
+     public static void setMouseLocation(Window win, float x,float y) {
     	 
     	 glfwSetCursorPos(win.getWindow(), x, y);
      }
      
 
      //this function does all the hard work to make an the mouse control the camera 
-     public void moveCamera(Window win,Camera camera,float sensitivity ) {
+     public static void moveCamera(Window win,Camera camera,float sensitivity ) {
     	 
     	 Vector2f temp=getMouseMovement(win,sensitivity);
     	 myX+=temp.x;
@@ -55,7 +55,7 @@ public class Mouse {
      }
      
      
-     public Vector2f getMouseMovement(Window win,float sensitivity) {
+     public static Vector2f getMouseMovement(Window win,float sensitivity) {
     	 DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
          DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
@@ -81,28 +81,6 @@ public class Mouse {
 
 
 
-	public float getX() {
-		return myX;
-	}
-
-
-
-	public void setX(float myX) {
-		this.myX = myX;
-	}
-
-
-
-	public float getY() {
-		return myY;
-	}
-
-
-
-	public void setY(float myY) {
-		this.myY = myY;
-	}
-     
      
      
 
