@@ -50,7 +50,7 @@ public class Batch {
 	public void setY(int index, float y) {
 		int start = index * 7 * 4 + 1;
 		float offset = vertices[start + 2 * 7] - vertices[start];
-		System.out.println("start");
+		
 		for(int i = 0; i < 4; i++) {
 			if(i == 2 || i == 3) {
 				vertices[start + i * 7] = y + offset;
@@ -70,18 +70,8 @@ public class Batch {
 	}
 	
 	
-	
-	
-	
-	
-	public void render() {
-		vao.render();
-	}
-	
-	
 	public void updateMax() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
-		//glBufferSubData(GL_ARRAY_BUFFER, 0, send);
 		glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
 	}
 	
@@ -92,6 +82,16 @@ public class Batch {
 		
 		glBufferSubData(GL_ARRAY_BUFFER, 0, subArray);
 	}
+
+	public Vao getVao() {
+		return vao;
+	}
+
+	public void setVao(Vao vao) {
+		this.vao = vao;
+	}
+	
+	
 	
 	
 
