@@ -2,22 +2,21 @@ package niles.lwjgl.batch;
 
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
-import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL15.glBufferData;
+import static org.lwjgl.opengl.GL15.*;
 
 import org.joml.Vector4f;
 
 public class Batch {
 	
 	private float[] vertices;
-	private int[] ids;
+	private int[] rectIds;
 	private int index;
 	
 	private Vao vao;
 	
 	public Batch(int size) {
 		vertices = new float[size * 4 * 7];
-		ids = new int[size];
+		rectIds = new int[size];
 		
 		vao = new Vao(size);
 		
@@ -37,10 +36,20 @@ public class Batch {
 		vao.render();
 	}
 	
-	public void updateAllValues() {
+	
+	public void updateMax() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
 		//glBufferSubData(GL_ARRAY_BUFFER, 0, send);
 		glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
+	}
+	
+	public void updateAllValues() {
+		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
+		float[] subArray = new float[index];
+		System.arraycopy(vertices, 0, subArray, 0, subArray.length);
+		
+		glBufferSubData(GL_ARRAY_BUFFER, 0, subArray);
+		//glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
 	}
 	
 	

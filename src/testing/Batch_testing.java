@@ -30,7 +30,7 @@ public class Batch_testing extends Game{
 		
 		objects = new Batch(100000);
 		
-		for(int i = 0; i<100000; i++) {
+		for(int i = 0; i<10; i++) {
 			objects.addRect((float)(Math.random())-0.5f, (float)(Math.random())-0.5f, 0.005f, 0.005f, new Vector4f(0, 1, 1, 1));
 		}
 		
@@ -42,8 +42,7 @@ public class Batch_testing extends Game{
 	public void update() {
 		shader.bind();
 		
-		
-		//objects.updateAllValues();
+		objects.updateAllValues();
 		objects.render();
 		
 		
