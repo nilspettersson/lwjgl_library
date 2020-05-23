@@ -17,6 +17,10 @@ public class BatchRenderer {
 		shader = new Shader("batch_shader");
 	}
 	
+	public void bindShader() {
+		shader.bind();
+	}
+	
 	
 	public void renderBatch(Camera camera, Batch batch) {
 		shader.setUniform("projection", camera.getProjection());

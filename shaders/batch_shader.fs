@@ -1,9 +1,11 @@
 #version 120
 
-uniform sampler2D sampler1;
+uniform sampler2D sampler[2];
 
 varying vec2 tex_coords;
 varying vec4 color;
+varying float textureId;
+
 
 
 //light locations
@@ -30,7 +32,11 @@ void main(){
 			b+=lights[i][1][2]*dis;
 			
 		}
-		gl_FragColor=((vec4(r,g,b,1)+color-1));
+		
+		vec4 texture=texture2D(sampler[0], tex_coords);
+		
+		gl_FragColor=((vec4(r,g,b,1) + texture + color-1));
+		
 		
 
 	}

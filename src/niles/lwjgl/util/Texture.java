@@ -106,6 +106,17 @@ public class Texture {
 			
 		}
 	}
+	
+	/*public void bindArray(int sampler,Shader shader) {
+		if(sampler>=0 && sampler<=31) {
+			glUniform1iv(glGetUniformLocation(shader.getProgram(), "sampler"), 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, id);
+			System.out.println("sampler"+sampler+"   "+GL_TEXTURE0);
+			
+		}
+	}*/
+	
 	public void bind2(int sampler,Shader shader) {
 		if(sampler>=0 && sampler<=31) {
 			glUniform1i(glGetUniformLocation(shader.getProgram(), "sampler1"), 0);

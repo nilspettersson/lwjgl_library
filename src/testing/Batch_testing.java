@@ -10,6 +10,7 @@ import niles.lwjgl.entites.Light;
 import niles.lwjgl.loop.Game;
 import niles.lwjgl.rendering.BatchRenderer;
 import niles.lwjgl.util.Shader;
+import niles.lwjgl.util.Texture;
 import niles.lwjgl.world.Mouse;
 
 public class Batch_testing extends Game{
@@ -17,12 +18,6 @@ public class Batch_testing extends Game{
 	public static void main(String[] args) {
 		new Batch_testing();
 	}
-	Shader shader;
-	Vao batch;
-	
-	Rect[] rects;
-	
-	float[] vertices;
 	
 	Batch objects;
 	
@@ -30,20 +25,20 @@ public class Batch_testing extends Game{
 	
 	Light lights;
 	
+	Texture t;
 	
 	@Override
 	public void setup() {
-		shader = new Shader("batch_shader");
+		
+		t = new Texture("res/floor.png");
 		
 		objects = new Batch(60000);
 		
-		for(int i = 0; i<60000; i++) {
-			objects.addRect((float)(Math.random()*800*4)-400*4, (float)(Math.random()*800*4)-400*4, 1f, 1f, new Vector4f(1, 1, 1, 1));
+		for(int i = 0; i<200; i++) {
+			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 100f, 100f, new Vector4f(0, 0, 0, 1), 1);
 		}
 		
 		renderer = new BatchRenderer();
-		
-		
 		
 		lights = new Light();
 		lights.addLight(400, -300, 10, 100, new Vector4f(1f,0.4f,0.4f,1));
@@ -59,17 +54,18 @@ public class Batch_testing extends Game{
 	
 	@Override
 	public void update() {
-		shader.bind();
 		Mouse.moveCamera(getWindow(), getCamera(), 1);
 		Mouse.isVisible(getWindow(), false);
 		
-		//objects.setY(0, objects.getY(0)+1f);
-		//objects.setX(0, objects.getX(0)+1f);
+		renderer.bindShader();
 		
-		objects.updateMax();
+		t.bind(0);
+		
+		objects.updateAllValues();
 		
 		renderer.useLights(getCamera(), lights);
 		renderer.renderBatch(getCamera(), objects);
+		
 		
 		setFpsCap(120);
 		System.out.println(getWindow().getFps());

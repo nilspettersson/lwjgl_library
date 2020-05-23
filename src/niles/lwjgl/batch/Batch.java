@@ -15,7 +15,7 @@ public class Batch {
 	private Vao vao;
 	
 	public Batch(int size) {
-		vertices = new float[size * 4 * 7];
+		vertices = new float[size * 4 * Vertex.size];
 		rectIds = new int[size];
 		
 		vao = new Vao(size);
@@ -23,50 +23,50 @@ public class Batch {
 		index = 0;
 	}
 	
-	public void addRect(float x, float y, float width, float height, Vector4f color) {
-		Rect rect = new Rect(x, y, width, height, color);
+	public void addRect(float x, float y, float width, float height, Vector4f color, int textureId) {
+		Rect rect = new Rect(x, y, width, height, color, textureId);
 		float[] rectVertices = rect.toArray();
 		for(int i = 0; i < rectVertices.length; i++) {
 			vertices[index + i] = rectVertices[i];
 		}
-		index += 7 * 4;
+		index += Vertex.size * 4;
 	}
 	
 	
 	
 	public void setX(int index, float x) {
-		int start = index * 7 * 4;
-		float offset = vertices[start + 2 * 7] - vertices[start];
+		int start = index * Vertex.size * 4;
+		float offset = vertices[start + 2 * Vertex.size] - vertices[start];
 		for(int i = 0; i < 4; i++) {
 			if(i == 1 || i == 2) {
-				vertices[start + i * 7] = x + offset;
+				vertices[start + i * Vertex.size] = x + offset;
 			}
 			else {
-				vertices[start + i * 7] = x;
+				vertices[start + i * Vertex.size] = x;
 			}
 		}
 	}
 	
 	public void setY(int index, float y) {
-		int start = index * 7 * 4 + 1;
-		float offset = vertices[start + 2 * 7] - vertices[start];
+		int start = index * Vertex.size * 4 + 1;
+		float offset = vertices[start + 2 * Vertex.size] - vertices[start];
 		
 		for(int i = 0; i < 4; i++) {
 			if(i == 2 || i == 3) {
-				vertices[start + i * 7] = y + offset;
+				vertices[start + i * Vertex.size] = y + offset;
 			}
 			else {
-				vertices[start + i * 7] = y;
+				vertices[start + i * Vertex.size] = y;
 			}
 		}
 	}
 	
 	
 	public float getX(int index) {
-		return vertices[index * 7 * 4];
+		return vertices[index * Vertex.size * 4];
 	}
 	public float getY(int index) {
-		return vertices[index * 7 * 4 + 1];
+		return vertices[index * Vertex.size * 4 + 1];
 	}
 	
 	

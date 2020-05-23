@@ -15,28 +15,16 @@ public class Vao {
 	
 	private int draw_count;
 	private int v_id;
-	private int t_id;
+	//private int t_id;
 	private int i_id;
 	
 	public Vao(int maxRectangles) {
-		
-		
-		
-		
 		float[] tex_coords=new float[] {
 				0,0,
 				1,0,
 				1,1,
 				0,1
 		};
-		/*int[] indices=new int[] {
-				0,1,2,
-				2,3,0,
-				
-				4,5,6,
-				6,7,4,
-				
-		};*/
 		
 		int[] indices=new int[maxRectangles * 6];
 		int offset = 0;
@@ -59,9 +47,9 @@ public class Vao {
 		glBufferData(GL_ARRAY_BUFFER, 224 * maxRectangles, GL_DYNAMIC_DRAW);
 		
 		
-		t_id=glGenBuffers();
+		/*t_id=glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, t_id);
-		glBufferData(GL_ARRAY_BUFFER, createBuffer(tex_coords), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, createBuffer(tex_coords), GL_STATIC_DRAW);*/
 		
 		
 		i_id=glGenBuffers();
@@ -82,13 +70,14 @@ public class Vao {
 	public void render() {
 		
 		glBindBuffer(GL_ARRAY_BUFFER,v_id);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, 7 * 4, 0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.size * 4, 0);
 		
-		glVertexAttribPointer(1, 4, GL_FLOAT, false, 7 * 4, 12);
+		glVertexAttribPointer(1, 4, GL_FLOAT, false, Vertex.size * 4, 12);
 		
+		glVertexAttribPointer(2, 1, GL_FLOAT, false, Vertex.size * 4, 28);
 		
-		glBindBuffer(GL_ARRAY_BUFFER,t_id);
-		glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(3, 2, GL_FLOAT, false, Vertex.size * 4, 32);
+		
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_id);
 		
@@ -102,6 +91,7 @@ public class Vao {
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
+		glEnableVertexAttribArray(3);
 	}
 	
 	private FloatBuffer createBuffer(float[] data) {
@@ -120,16 +110,6 @@ public class Vao {
 
 	public void setV_id(int v_id) {
 		this.v_id = v_id;
-	}
-
-
-	public int getT_id() {
-		return t_id;
-	}
-
-
-	public void setT_id(int t_id) {
-		this.t_id = t_id;
 	}
 
 
