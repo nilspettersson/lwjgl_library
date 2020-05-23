@@ -52,7 +52,7 @@ public class Batch_testing extends Game{
 		
 		
 		
-		float[] send = new float[7*4*10000];
+		float[] send = new float[7*4*100000];
 		for(int i = 0; i<send.length; i++) {
 			vertices[i]+=0.001f;
 			send[i]=vertices[i];
@@ -64,8 +64,8 @@ public class Batch_testing extends Game{
 		
 		
 		glBindBuffer(GL_ARRAY_BUFFER, batch.getV_id());
-		glBufferSubData(GL_ARRAY_BUFFER, 0, send);
-		
+		//glBufferSubData(GL_ARRAY_BUFFER, 0, send);
+		glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
 		
 		batch.render();
 		
