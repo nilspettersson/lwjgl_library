@@ -21,7 +21,6 @@ public class Batch_testing extends Game{
 	
 	float[] vertices;
 	
-	
 	Batch objects;
 	
 	@Override
@@ -31,23 +30,27 @@ public class Batch_testing extends Game{
 		objects = new Batch(100000);
 		
 		for(int i = 0; i<10; i++) {
-			objects.addRect((float)(Math.random())-0.5f, (float)(Math.random())-0.5f, 0.005f, 0.005f, new Vector4f(0, 1, 1, 1));
+			objects.addRect((float)(Math.random())-0.5f, (float)(Math.random())-0.5f, 0.05f, 0.05f, new Vector4f(0, 1, 1, 1));
 		}
 		
 		
 		getWindow().setVSync(false);
 	}
-
+	
 	@Override
 	public void update() {
 		shader.bind();
+		
+		
+		objects.setY(0, objects.getY(0)+0.001f);
+		objects.setX(0, objects.getX(0)+0.001f);
 		
 		objects.updateAllValues();
 		objects.render();
 		
 		
 		setFpsCap(120);
-		System.out.println(getWindow().getFps());
+		//System.out.println(getWindow().getFps());
 		
 	}
 
