@@ -18,6 +18,9 @@ public class ParticleSystem {
 	
 	private Vector4f[] particleData;
 	
+	private Vector4f startColor;
+	private Vector4f endColor;
+	
 	public ParticleSystem(float x, float y, float initSpeed, float initAngle, float initRandVel, int particleAmount) {
 		this.x = x;
 		this.y = y;
@@ -35,16 +38,12 @@ public class ParticleSystem {
 		
 		particleData = new Vector4f[particleAmount];
 		
+		startColor = new Vector4f(1);
+		endColor = new Vector4f(1);
+		
 		for(int i = 0; i < particleAmount; i++) {
 			particles.addRect(x, y, 1, 1, new Vector4f(0), 0);
 			
-			//double angle = (double)(Math.random() * Math.PI * 2);
-			//float speed = (float)(((Math.random() * initRandVel)-initRandVel / 2));
-			//float tx = (float) ((Math.cos(initAngle) * initSpeed) + Math.cos(angle) * speed);
-			//float ty = (float) ((Math.sin(initAngle) * initSpeed) + Math.sin(angle) * speed);
-			
-			/*float tx = initXVel + (float)(Math.random() * initRandVel)-initRandVel / 2;
-			float ty = initYVel + (float)(Math.random() * initRandVel)-initRandVel / 2;*/
 			particleData[i] = new Vector4f(0, 0, 0, 0);
 			
 		}
@@ -75,7 +74,7 @@ public class ParticleSystem {
 				
 				particles.setX(i, x);
 				particles.setY(i, y);
-				particles.setColor(i, new Vector4f(1));
+				particles.setColor(i, startColor);
 				particleData[i].w += 1;
 				i++;
 				created++;
@@ -92,6 +91,50 @@ public class ParticleSystem {
 				particleData[i].w++;
 				particles.setX(i, particles.getX(i) + particleData[i].x);
 				particles.setY(i, particles.getY(i) + particleData[i].y);
+				
+				
+				
+				float life = particleData[i].w / lifeTime;
+
+				float r;
+				float g;
+				float b;
+				float a;
+				if(startColor.x < endColor.x) {
+					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+					r =Math.min(startColor.x, endColor.x) + life * rate;
+				}
+				else {
+					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+					r =Math.min(startColor.x, endColor.x) + (1 - life ) * rate;
+				}
+				if(startColor.y < endColor.y) {
+					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+					g =Math.min(startColor.y, endColor.y) + life * rate;
+				}
+				else {
+					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+					g =Math.min(startColor.y, endColor.y) + (1 - life ) * rate;
+				}
+				if(startColor.z < endColor.z) {
+					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+					b =Math.min(startColor.z, endColor.z) + life * rate;
+				}
+				else {
+					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+					b =Math.min(startColor.z, endColor.z) + (1 - life ) * rate;
+				}
+				if(startColor.w < endColor.w) {
+					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+					a =Math.min(startColor.w, endColor.w) + life * rate;
+				}
+				else {
+					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+					a =Math.min(startColor.w, endColor.w) + (1 - life ) * rate;
+				}
+				
+				
+				particles.setColor(i, new Vector4f(r, g, b, a));
 			}
 			if(particleData[i].w > lifeTime) {
 				particleData[i].w = 0;
@@ -161,6 +204,26 @@ public class ParticleSystem {
 
 	public void setInitAngle(float initAngle) {
 		this.initAngle = initAngle;
+	}
+
+
+	public Vector4f getStartColor() {
+		return startColor;
+	}
+
+
+	public void setStartColor(Vector4f startColor) {
+		this.startColor = startColor;
+	}
+
+
+	public Vector4f getEndColor() {
+		return endColor;
+	}
+
+
+	public void setEndColor(Vector4f endColor) {
+		this.endColor = endColor;
 	}
 	
 	

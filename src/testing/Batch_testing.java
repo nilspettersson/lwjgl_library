@@ -46,6 +46,8 @@ public class Batch_testing extends Game{
 		
 		system = new ParticleSystem(0, 0, 0f, (float)(Math.PI/2), 0.4f, 80000);
 		system.setLifeTime(400);
+		system.setStartColor(new Vector4f(0, 0, 1, 1));
+		system.setEndColor(new Vector4f(1, 0, 0, 0));
 		
 		renderer = new BatchRenderer();
 		
