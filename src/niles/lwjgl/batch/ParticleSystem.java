@@ -101,6 +101,17 @@ public class ParticleSystem {
 		
 	}
 	
+	
+	public void applyForce(float angle, float speed, float random) {
+		for(int i = 0; i < particleData.length; i++) {
+			if(particleData[i].w != 0) {
+				float tx = (float) ((Math.cos(angle) * speed));
+				float ty = (float) ((Math.sin(angle) * speed));
+				particleData[i].x +=tx + (float)(((Math.random() * random)-random / 2));
+				particleData[i].y +=ty + (float)(((Math.random() * random)-random / 2));
+			}
+		}
+	}
 
 	
 	

@@ -17,7 +17,6 @@ import niles.lwjgl.util.Texture;
 
 public class Batch {
 	
-	private int[] rectIds;
 	private int index;
 	
 	private ArrayList<Texture>textures;
@@ -33,7 +32,6 @@ public class Batch {
 	    bb.order(ByteOrder.nativeOrder());
 	    vertices = bb.asFloatBuffer();
 		
-		rectIds = new int[size];
 		
 		vao = new Vao(size);
 		textures = new ArrayList<Texture>();
