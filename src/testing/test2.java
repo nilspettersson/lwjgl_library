@@ -30,7 +30,7 @@ public class test2 extends Game{
 		
 		setBackgroundColor(new Vector4f(1));
 		//Texture texture=new Texture("res/floor.png");
-		for(int i=0;i<100000;i++) {
+		for(int i=0;i<150000;i++) {
 			rects.add(new Rect(new Position((int)(Math.random()*1000)-500, (int)(Math.random()*1000)-500, 2),new Material(new Vector4f(1,0,0,1), (float)Math.random()*40, (float)Math.random()*2)));
 		}
 		lights=new Light();

@@ -17,7 +17,7 @@ import niles.lwjgl.util.Texture;
 
 public class Batch {
 	
-	private float[] vertices;
+	//private float[] vertices;
 	private int[] rectIds;
 	private int index;
 	
@@ -25,15 +25,27 @@ public class Batch {
 	
 	private Vao vao;
 	
+	private FloatBuffer vertices;
+	
+	private int size;
 	
 	public Batch(int size) {
-		vertices = new float[size * 4 * Vertex.size];
+		//vertices = new float[size * 4 * Vertex.size];
+		
+		ByteBuffer bb = ByteBuffer.allocateDirect(size * 4 * Vertex.size * 4);
+	    bb.order(ByteOrder.nativeOrder());
+	    vertices = bb.asFloatBuffer();
+		
+		
+		
 		rectIds = new int[size];
 		
 		vao = new Vao(size);
 		textures = new ArrayList<Texture>();
 		
 		index = 0;
+		
+		size = 0;
 	}
 	
 	public void addTexture(Texture texture) {
@@ -50,86 +62,89 @@ public class Batch {
 		Rect rect = new Rect(x, y, width, height, color, textureId);
 		float[] rectVertices = rect.toArray();
 		for(int i = 0; i < rectVertices.length; i++) {
-			vertices[index + i] = rectVertices[i];
+			//vertices[index + i] = rectVertices[i];
+			//System.out.println(vertices);
+			vertices.put(index + i, rectVertices[i]);
 		}
 		index += Vertex.size * 4;
+		size++;
 	}
 	
 	
 	
 	public void setX(int index, float x) {
 		int start = index * Vertex.size * 4;
-		float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
 			if(i == 1 || i == 2) {
-				vertices[start + i * Vertex.size] = x + offset;
+				//vertices[start + i * Vertex.size] = x + offset;
+				vertices.put(start + i * Vertex.size, x + offset);
 			}
 			else {
-				vertices[start + i * Vertex.size] = x;
+				//vertices[start + i * Vertex.size] = x;
+				vertices.put(start + i * Vertex.size, x);
 			}
 		}
 	}
 	
 	public void setY(int index, float y) {
 		int start = index * Vertex.size * 4 + 1;
-		float offset = vertices[start + 2 * Vertex.size] - vertices[start];
-		
+		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
 			if(i == 2 || i == 3) {
-				vertices[start + i * Vertex.size] = y + offset;
+				//vertices[start + i * Vertex.size] = y + offset;
+				vertices.put(start + i * Vertex.size, y + offset);
 			}
 			else {
-				vertices[start + i * Vertex.size] = y;
+				//vertices[start + i * Vertex.size] = y;
+				vertices.put(start + i * Vertex.size, y);
 			}
 		}
 	}
 	
 	public void setColor(int index, Vector4f color) {
 		int start = index * Vertex.size * 4 + 3;
-		float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
-			vertices[start + i * Vertex.size + 0] = color.x;
+			/*vertices[start + i * Vertex.size + 0] = color.x;
 			vertices[start + i * Vertex.size + 1] = color.y;
 			vertices[start + i * Vertex.size + 2] = color.z;
-			vertices[start + i * Vertex.size + 3] = color.w;
+			vertices[start + i * Vertex.size + 3] = color.w;*/
+			
+			vertices.put(start + i * Vertex.size + 0, color.x);
+			vertices.put(start + i * Vertex.size + 1, color.y);
+			vertices.put(start + i * Vertex.size + 2, color.z);
+			vertices.put(start + i * Vertex.size + 3, color.w);
 		}
 	}
 	
 	
 	public int size() {
-		return vertices.length/(Vertex.size * 4);
+		return size;
 	}
 	
 	
 	public float getX(int index) {
-		return vertices[index * Vertex.size * 4];
+		//return vertices[index * Vertex.size * 4];
+		return vertices.get(index * Vertex.size * 4);
 	}
 	public float getY(int index) {
-		return vertices[index * Vertex.size * 4 + 1];
+		//return vertices[index * Vertex.size * 4 + 1];
+		return vertices.get(index * Vertex.size * 4 + 1);
 	}
 	
-	static boolean done = false;
-	FloatBuffer buffer;
+	
 	public void updateMax() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
 		//glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
-		if(!done) {
-			buffer = makeFloatBuffer(vertices);
-			done=true;
-		}
 		
 		
-		glBufferData(GL_ARRAY_BUFFER, buffer, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
 	}
 	
-	public static FloatBuffer makeFloatBuffer(float[] arr) {
-	    ByteBuffer bb = ByteBuffer.allocateDirect(arr.length*4);
-	    bb.order(ByteOrder.nativeOrder());
-	    FloatBuffer fb = bb.asFloatBuffer();
-	    fb.put(arr);
-	    fb.position(0);
-	    return fb;
-	  }
 	
 	public void updateAllValues() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());

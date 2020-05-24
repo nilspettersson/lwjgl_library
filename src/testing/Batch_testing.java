@@ -28,10 +28,11 @@ public class Batch_testing extends Game{
 	
 	@Override
 	public void setup() {
-		objects = new Batch(200000);
+		objects = new Batch(150000);
 		
-		for(int i = 0; i<200000; i++) {
-			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 1f, 1f, new Vector4f(1, 1, 1, 1), 0);
+		for(int i = 0; i<150000; i++) {
+			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 4f, 4f, new Vector4f(1, 1, 1, 1), 0);
+			objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
 		}
 		
 		
@@ -61,7 +62,9 @@ public class Batch_testing extends Game{
 		
 		
 		/*for(int i = 0; i<objects.size(); i++) {
-			objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
+			//objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
+			objects.setX(i, objects.getX(i) + (float)(Math.random()*8)-4);
+			objects.setY(i, objects.getY(i) + (float)(Math.random()*8)-4);
 		}*/
 		
 		objects.updateMax();
