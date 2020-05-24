@@ -4,6 +4,7 @@ import org.joml.Vector4f;
 import static org.lwjgl.opengl.GL15.*;
 
 import niles.lwjgl.batch.Batch;
+import niles.lwjgl.batch.ParticleSystem;
 import niles.lwjgl.batch.Rect;
 import niles.lwjgl.batch.Vao;
 import niles.lwjgl.entites.Light;
@@ -25,19 +26,26 @@ public class Batch_testing extends Game{
 	
 	Light lights;
 	
+	ParticleSystem system;
+	
 	
 	@Override
 	public void setup() {
-		objects = new Batch(150000);
+		/*objects = new Batch(150000);
 		
 		for(int i = 0; i<150000; i++) {
 			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 4f, 4f, new Vector4f(1, 1, 1, 1), 0);
 			objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
-		}
+		}*/
 		
 		
 		/*objects.addTexture(new Texture("res/wood_planks_old_0087_01.jpg"));
 		objects.bindTextures();*/
+		
+		
+		
+		system = new ParticleSystem(0, 0, 1f, (float)(Math.PI/2), 0.8f, 8000);
+		system.setLifeTime(1000);
 		
 		renderer = new BatchRenderer();
 		
@@ -57,9 +65,7 @@ public class Batch_testing extends Game{
 	public void update() {
 		Mouse.moveCamera(getWindow(), getCamera(), 1);
 		Mouse.isVisible(getWindow(), false);
-		
 		renderer.bindShader();
-		
 		
 		/*for(int i = 0; i<objects.size(); i++) {
 			//objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
@@ -67,10 +73,15 @@ public class Batch_testing extends Game{
 			objects.setY(i, objects.getY(i) + (float)(Math.random()*8)-4);
 		}*/
 		
-		objects.updateMax();
+		/*objects.updateMax();
 		
 		renderer.useLights(getCamera(), lights);
-		renderer.renderBatch(getCamera(), objects);
+		renderer.renderBatch(getCamera(), objects);*/
+		
+		
+		system.update(8);
+		renderer.renderParticles(getCamera(), system);
+		
 		
 		
 		setFpsCap(120);

@@ -17,7 +17,6 @@ import niles.lwjgl.util.Texture;
 
 public class Batch {
 	
-	//private float[] vertices;
 	private int[] rectIds;
 	private int index;
 	
@@ -30,13 +29,9 @@ public class Batch {
 	private int size;
 	
 	public Batch(int size) {
-		//vertices = new float[size * 4 * Vertex.size];
-		
 		ByteBuffer bb = ByteBuffer.allocateDirect(size * 4 * Vertex.size * 4);
 	    bb.order(ByteOrder.nativeOrder());
 	    vertices = bb.asFloatBuffer();
-		
-		
 		
 		rectIds = new int[size];
 		
@@ -62,8 +57,6 @@ public class Batch {
 		Rect rect = new Rect(x, y, width, height, color, textureId);
 		float[] rectVertices = rect.toArray();
 		for(int i = 0; i < rectVertices.length; i++) {
-			//vertices[index + i] = rectVertices[i];
-			//System.out.println(vertices);
 			vertices.put(index + i, rectVertices[i]);
 		}
 		index += Vertex.size * 4;
@@ -74,15 +67,12 @@ public class Batch {
 	
 	public void setX(int index, float x) {
 		int start = index * Vertex.size * 4;
-		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
 		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
 			if(i == 1 || i == 2) {
-				//vertices[start + i * Vertex.size] = x + offset;
 				vertices.put(start + i * Vertex.size, x + offset);
 			}
 			else {
-				//vertices[start + i * Vertex.size] = x;
 				vertices.put(start + i * Vertex.size, x);
 			}
 		}
@@ -90,15 +80,13 @@ public class Batch {
 	
 	public void setY(int index, float y) {
 		int start = index * Vertex.size * 4 + 1;
-		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
+		
 		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
 			if(i == 2 || i == 3) {
-				//vertices[start + i * Vertex.size] = y + offset;
 				vertices.put(start + i * Vertex.size, y + offset);
 			}
 			else {
-				//vertices[start + i * Vertex.size] = y;
 				vertices.put(start + i * Vertex.size, y);
 			}
 		}
@@ -106,13 +94,8 @@ public class Batch {
 	
 	public void setColor(int index, Vector4f color) {
 		int start = index * Vertex.size * 4 + 3;
-		//float offset = vertices[start + 2 * Vertex.size] - vertices[start];
 		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
 		for(int i = 0; i < 4; i++) {
-			/*vertices[start + i * Vertex.size + 0] = color.x;
-			vertices[start + i * Vertex.size + 1] = color.y;
-			vertices[start + i * Vertex.size + 2] = color.z;
-			vertices[start + i * Vertex.size + 3] = color.w;*/
 			
 			vertices.put(start + i * Vertex.size + 0, color.x);
 			vertices.put(start + i * Vertex.size + 1, color.y);
@@ -128,20 +111,15 @@ public class Batch {
 	
 	
 	public float getX(int index) {
-		//return vertices[index * Vertex.size * 4];
 		return vertices.get(index * Vertex.size * 4);
 	}
 	public float getY(int index) {
-		//return vertices[index * Vertex.size * 4 + 1];
 		return vertices.get(index * Vertex.size * 4 + 1);
 	}
 	
 	
 	public void updateMax() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
-		//glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
-		
-		
 		glBufferData(GL_ARRAY_BUFFER, vertices, GL_DYNAMIC_DRAW);
 	}
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.joml.Matrix4f;
 
 import niles.lwjgl.batch.Batch;
+import niles.lwjgl.batch.ParticleSystem;
 import niles.lwjgl.entites.Light;
 import niles.lwjgl.util.Shader;
 import niles.lwjgl.world.Camera;
@@ -30,6 +31,12 @@ public class BatchRenderer {
 	public void renderBatch(Camera camera, Batch batch) {
 		shader.setUniform("projection", camera.getProjection());
 		batch.getVao().render();
+	}
+	
+	public void renderParticles(Camera camera, ParticleSystem particles) {
+		shader.setUniform("projection", camera.getProjection());
+		particles.getParticles().updateMax();
+		particles.getParticles().getVao().render();
 	}
 	
 	public void useLights(Camera camera,Light lights) {

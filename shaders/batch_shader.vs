@@ -7,9 +7,9 @@ layout (location = 3) in vec2 textures;
 
 uniform mat4 projection;
 
-varying vec2 tex_coords;
-varying vec4 color;
-varying float textureId;
+out vec2 tex_coords;
+out vec4 color;
+out float textureId;
 
 void main(){
 	color = a_color;

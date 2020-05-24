@@ -2,9 +2,9 @@
 
 uniform sampler2D sampler[20];
 
-varying vec2 tex_coords;
-varying vec4 color;
-varying float textureId;
+in vec2 tex_coords;
+in vec4 color;
+in float textureId;
 
 
 
