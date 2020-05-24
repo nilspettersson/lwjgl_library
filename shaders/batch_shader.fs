@@ -35,8 +35,7 @@ void main(){
 		
 		int id = int(textureId);
 		vec4 texture=texture2D(sampler[id], tex_coords);
-		
-		gl_FragColor=((vec4(r,g,b,1) + texture + color-1));
+		gl_FragColor=((vec4(r,g,b,color.w * texture.w) + texture + color-1));
 		
 		
 

@@ -12,8 +12,8 @@ public class Rect {
 		
 		vertices[0] = new Vertex(new Vector3f(x, y, 0), color, textureId, new Vector2f(0, 0));
 		vertices[1] = new Vertex(new Vector3f(x + width, y, 0), color, textureId, new Vector2f(1, 0));
-		vertices[2] = new Vertex(new Vector3f(x + width, y + height, 0), color, textureId, new Vector2f(1, 1));
-		vertices[3] = new Vertex(new Vector3f(x, y + height, 0), color, textureId, new Vector2f(0, 1));
+		vertices[2] = new Vertex(new Vector3f(x + width, y - height, 0), color, textureId, new Vector2f(1, 1));
+		vertices[3] = new Vertex(new Vector3f(x, y - height, 0), color, textureId, new Vector2f(0, 1));
 		
 	}
 	

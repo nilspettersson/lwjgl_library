@@ -44,12 +44,7 @@ public class Vao {
 		
 		v_id=glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, v_id);
-		glBufferData(GL_ARRAY_BUFFER, 224 * maxRectangles, GL_DYNAMIC_DRAW);
-		
-		
-		/*t_id=glGenBuffers();
-		glBindBuffer(GL_ARRAY_BUFFER, t_id);
-		glBufferData(GL_ARRAY_BUFFER, createBuffer(tex_coords), GL_STATIC_DRAW);*/
+		glBufferData(GL_ARRAY_BUFFER, 160 * maxRectangles, GL_DYNAMIC_DRAW);
 		
 		
 		i_id=glGenBuffers();

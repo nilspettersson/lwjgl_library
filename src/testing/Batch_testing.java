@@ -28,14 +28,15 @@ public class Batch_testing extends Game{
 	
 	@Override
 	public void setup() {
-		objects = new Batch(60000);
+		objects = new Batch(200000);
 		
-		for(int i = 0; i<20000; i++) {
-			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 10f, 10f, new Vector4f(1, 1, 1, 1), 0);
+		for(int i = 0; i<200000; i++) {
+			objects.addRect((float)(Math.random()*800*1)-400*1, (float)(Math.random()*800*1)-400*1, 1f, 1f, new Vector4f(1, 1, 1, 1), 0);
 		}
 		
 		
-		
+		/*objects.addTexture(new Texture("res/wood_planks_old_0087_01.jpg"));
+		objects.bindTextures();*/
 		
 		renderer = new BatchRenderer();
 		
@@ -59,8 +60,11 @@ public class Batch_testing extends Game{
 		renderer.bindShader();
 		
 		
+		/*for(int i = 0; i<objects.size(); i++) {
+			objects.setColor(i, new Vector4f((float)(Math.random()),(float)(Math.random()),(float)(Math.random()),1));
+		}*/
 		
-		objects.updateAllValues();
+		objects.updateMax();
 		
 		renderer.useLights(getCamera(), lights);
 		renderer.renderBatch(getCamera(), objects);
