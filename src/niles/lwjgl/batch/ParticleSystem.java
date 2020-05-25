@@ -155,6 +155,42 @@ public class ParticleSystem {
 			}
 		}
 	}
+	
+	public void applypull(double speed1 , double x, double y, double drag, double minDis, boolean constant) {
+		for(int i = 0; i < particleData.length; i++) {
+			if(particleData[i].w != 0) {
+				double difX = particles.getX(i) - x;
+				double difY = particles.getY(i) - y;
+				double dis = Math.sqrt((difX * difX) + (difY * difY));
+				
+				double angle = Math.atan(difY / difX);
+				
+				if(dis <= minDis) {
+					continue;
+				}
+				float speed;
+				if(constant) {
+					speed =(float) (speed1 / (40));
+				}
+				else {
+					speed =(float) (speed1 / (dis * dis));
+				}
+				
+				if(x < particles.getX(i)) {
+					angle = angle + Math.PI;
+				}
+				
+				float tx = (float) ((Math.cos(angle) * speed));
+				float ty = (float) ((Math.sin(angle) * speed));
+				
+				particleData[i].x += tx;
+				particleData[i].y += ty;
+				
+				particleData[i].x *= drag;
+				particleData[i].y *= drag;
+			}
+		}
+	}
 
 	
 	

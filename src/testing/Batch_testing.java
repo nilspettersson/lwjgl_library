@@ -44,10 +44,10 @@ public class Batch_testing extends Game{
 		
 		
 		
-		system = new ParticleSystem(0, 0, 0f, (float)(Math.PI/2), 0.4f, 80000);
-		system.setLifeTime(400);
+		system = new ParticleSystem(0, 0, 0f, (float)(Math.PI/2), 1f, 100000);
+		system.setLifeTime(15000);
 		system.setStartColor(new Vector4f(0, 0, 1, 1));
-		system.setEndColor(new Vector4f(1, 0, 0, 0));
+		system.setEndColor(new Vector4f(1, 0, 0, 1));
 		
 		renderer = new BatchRenderer();
 		
@@ -65,8 +65,8 @@ public class Batch_testing extends Game{
 	
 	@Override
 	public void update() {
-		Mouse.moveCamera(getWindow(), getCamera(), 1);
-		Mouse.isVisible(getWindow(), false);
+		//Mouse.moveCamera(getWindow(), getCamera(), 1);
+		//Mouse.isVisible(getWindow(), false);
 		renderer.bindShader();
 		
 		/*for(int i = 0; i<objects.size(); i++) {
@@ -80,8 +80,10 @@ public class Batch_testing extends Game{
 		renderer.useLights(getCamera(), lights);
 		renderer.renderBatch(getCamera(), objects);*/
 		
-		system.applyForce((float)(Math.random()*Math.PI*2), 0.1f, 0.04f);
-		system.update(100);
+		system.applyForce((float)(Math.random()*Math.PI*2), 0.1f, 0.1f);
+		system.applypull(2000f, Mouse.getMouseMovement(getWindow(), 1).x, -Mouse.getMouseMovement(getWindow(), 1).y, 0.9, 0, true);
+		//system.applypull(100f, 300, 100);
+		system.update(1000);
 		renderer.renderParticles(getCamera(), system);
 		
 		
