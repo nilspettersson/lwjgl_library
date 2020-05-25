@@ -90,6 +90,27 @@ public class Batch {
 		}
 	}
 	
+	public void setWidth(int index, float width) {
+		int start = index * Vertex.size * 4 + 0;
+		
+		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
+		for(int i = 0; i < 4; i++) {
+			if(i == 1 || i == 2) {
+				vertices.put(start + i * Vertex.size, vertices.get(start + 0 * Vertex.size) + width);
+			}
+		}
+	}
+	public void setHeight(int index, float height) {
+		int start = index * Vertex.size * 4 + 1;
+		
+		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
+		for(int i = 0; i < 4; i++) {
+			if(i == 2 || i == 3) {
+				vertices.put(start + i * Vertex.size, vertices.get(start + 0 * Vertex.size) + height);
+			}
+		}
+	}
+	
 	public void setColor(int index, Vector4f color) {
 		int start = index * Vertex.size * 4 + 3;
 		float offset = vertices.get(start + 2 * Vertex.size) - vertices.get(start);
@@ -113,6 +134,10 @@ public class Batch {
 	}
 	public float getY(int index) {
 		return vertices.get(index * Vertex.size * 4 + 1);
+	}
+	
+	public float getWidth(int index) {
+		return vertices.get((index * Vertex.size * 4) + Vertex.size * 2) - vertices.get(index * Vertex.size * 4);
 	}
 	
 	

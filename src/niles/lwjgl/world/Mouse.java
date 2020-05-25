@@ -45,7 +45,7 @@ public class Mouse {
      //this function does all the hard work to make an the mouse control the camera 
      public static void moveCamera(Window win,Camera camera,float sensitivity ) {
     	 
-    	 Vector2f temp=getMouseMovement(win,sensitivity);
+    	 Vector2f temp=getMousePosition(win,sensitivity);
     	 myX+=temp.x;
     	 myY+=temp.y;
     	 
@@ -55,7 +55,7 @@ public class Mouse {
      }
      
      
-     public static Vector2f getMouseMovement(Window win,float sensitivity) {
+     public static Vector2f getMousePosition(Window win,float sensitivity) {
     	 DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
          DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 

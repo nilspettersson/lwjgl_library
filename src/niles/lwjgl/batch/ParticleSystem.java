@@ -21,6 +21,9 @@ public class ParticleSystem {
 	private Vector4f startColor;
 	private Vector4f endColor;
 	
+	private float startSize;
+	private float endSize;
+	
 	public ParticleSystem(float x, float y, float initSpeed, float initAngle, float initRandVel, int particleAmount) {
 		this.x = x;
 		this.y = y;
@@ -41,8 +44,11 @@ public class ParticleSystem {
 		startColor = new Vector4f(1);
 		endColor = new Vector4f(1);
 		
+		startSize = 4;
+		endSize = 4;
+		
 		for(int i = 0; i < particleAmount; i++) {
-			particles.addRect(x, y, 1, 1, new Vector4f(0), 0);
+			particles.addRect(x, y, startSize, startSize, new Vector4f(0), 0);
 			
 			particleData[i] = new Vector4f(0, 0, 0, 0);
 			
@@ -92,49 +98,9 @@ public class ParticleSystem {
 				particles.setX(i, particles.getX(i) + particleData[i].x);
 				particles.setY(i, particles.getY(i) + particleData[i].y);
 				
-				
-				
-				float life = particleData[i].w / lifeTime;
+				setColor(i);
+				setSize(i);
 
-				float r;
-				float g;
-				float b;
-				float a;
-				if(startColor.x < endColor.x) {
-					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
-					r =Math.min(startColor.x, endColor.x) + life * rate;
-				}
-				else {
-					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
-					r =Math.min(startColor.x, endColor.x) + (1 - life ) * rate;
-				}
-				if(startColor.y < endColor.y) {
-					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
-					g =Math.min(startColor.y, endColor.y) + life * rate;
-				}
-				else {
-					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
-					g =Math.min(startColor.y, endColor.y) + (1 - life ) * rate;
-				}
-				if(startColor.z < endColor.z) {
-					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
-					b =Math.min(startColor.z, endColor.z) + life * rate;
-				}
-				else {
-					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
-					b =Math.min(startColor.z, endColor.z) + (1 - life ) * rate;
-				}
-				if(startColor.w < endColor.w) {
-					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
-					a =Math.min(startColor.w, endColor.w) + life * rate;
-				}
-				else {
-					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
-					a =Math.min(startColor.w, endColor.w) + (1 - life ) * rate;
-				}
-				
-				
-				particles.setColor(i, new Vector4f(r, g, b, a));
 			}
 			if(particleData[i].w > lifeTime) {
 				particleData[i].w = 0;
@@ -142,6 +108,125 @@ public class ParticleSystem {
 		}
 		
 		
+	}
+	
+	private void setColor(int i) {
+		float life = particleData[i].w / lifeTime;
+
+		float r;
+		float g;
+		float b;
+		float a;
+		if(startColor.x < endColor.x) {
+			float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+			r =Math.min(startColor.x, endColor.x) + life * rate;
+		}
+		else {
+			float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+			r =Math.min(startColor.x, endColor.x) + (1 - life ) * rate;
+		}
+		if(startColor.y < endColor.y) {
+			float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+			g =Math.min(startColor.y, endColor.y) + life * rate;
+		}
+		else {
+			float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+			g =Math.min(startColor.y, endColor.y) + (1 - life ) * rate;
+		}
+		if(startColor.z < endColor.z) {
+			float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+			b =Math.min(startColor.z, endColor.z) + life * rate;
+		}
+		else {
+			float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+			b =Math.min(startColor.z, endColor.z) + (1 - life ) * rate;
+		}
+		if(startColor.w < endColor.w) {
+			float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+			a =Math.min(startColor.w, endColor.w) + life * rate;
+		}
+		else {
+			float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+			a =Math.min(startColor.w, endColor.w) + (1 - life ) * rate;
+		}
+		
+		
+		particles.setColor(i, new Vector4f(r, g, b, a));
+	}
+	
+	private void setSize(int i) {
+		//System.out.println(particles.getWidth(i));
+		float life = particleData[i].w / lifeTime;
+
+		float size;
+		if(startSize < endSize) {
+			float rate = Math.max(startSize, endSize) - Math.min(startSize, endSize);
+			size =Math.min(startSize, endSize) + life * rate;
+		}
+		else {
+			float rate = Math.max(startSize, endSize) - Math.min(startSize, endSize);
+			size =Math.min(startSize, endSize) + (1 - life ) * rate;
+		}
+
+		particles.setWidth(i, size);
+		particles.setHeight(i, size);
+	}
+	
+	
+	public void mapColorToSpeed(Vector4f startColor, Vector4f endColor, float maxSpeed) {
+		for(int i = 0; i < particleData.length; i++) {
+			if(particleData[i].w != 0) {
+				
+				double dX = particleData[i].x;
+				double dY = particleData[i].y;
+				double dis = Math.sqrt((dX * dX) + (dY * dY));
+				
+				float speed = (float) (dis / maxSpeed);
+
+				float r;
+				float g;
+				float b;
+				float a;
+				if(startColor.x < endColor.x) {
+					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+					r =Math.min(startColor.x, endColor.x) + speed * rate;
+				}
+				else {
+					float rate = Math.max(startColor.x, endColor.x) - Math.min(startColor.x, endColor.x);
+					r =Math.min(startColor.x, endColor.x) + (1 - speed ) * rate;
+				}
+				if(startColor.y < endColor.y) {
+					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+					g =Math.min(startColor.y, endColor.y) + speed * rate;
+				}
+				else {
+					float rate = Math.max(startColor.y, endColor.y) - Math.min(startColor.y, endColor.y);
+					g =Math.min(startColor.y, endColor.y) + (1 - speed ) * rate;
+				}
+				if(startColor.z < endColor.z) {
+					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+					b =Math.min(startColor.z, endColor.z) + speed * rate;
+				}
+				else {
+					float rate = Math.max(startColor.z, endColor.z) - Math.min(startColor.z, endColor.z);
+					b =Math.min(startColor.z, endColor.z) + (1 - speed ) * rate;
+				}
+				if(startColor.w < endColor.w) {
+					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+					a =Math.min(startColor.w, endColor.w) + speed * rate;
+				}
+				else {
+					float rate = Math.max(startColor.w, endColor.w) - Math.min(startColor.w, endColor.w);
+					a =Math.min(startColor.w, endColor.w) + (1 - speed ) * rate;
+				}
+				
+				
+				particles.setColor(i, new Vector4f(r, g, b, a));
+				
+				
+				
+			}
+		}
 	}
 	
 	
@@ -156,7 +241,7 @@ public class ParticleSystem {
 		}
 	}
 	
-	public void applypull(double speed1 , double x, double y, double drag, double minDis, boolean constant) {
+	public void applypull(double speed1 , double x, double y, double drag, double maxSpeed, boolean constant) {
 		for(int i = 0; i < particleData.length; i++) {
 			if(particleData[i].w != 0) {
 				double difX = particles.getX(i) - x;
@@ -165,9 +250,9 @@ public class ParticleSystem {
 				
 				double angle = Math.atan(difY / difX);
 				
-				if(dis <= minDis) {
+				/*if(dis <= minDis) {
 					continue;
-				}
+				}*/
 				float speed;
 				if(constant) {
 					speed =(float) (speed1 / (40));
@@ -178,6 +263,10 @@ public class ParticleSystem {
 				
 				if(x < particles.getX(i)) {
 					angle = angle + Math.PI;
+				}
+				
+				if(speed > maxSpeed) {
+					speed = (float) maxSpeed;
 				}
 				
 				float tx = (float) ((Math.cos(angle) * speed));
@@ -260,6 +349,26 @@ public class ParticleSystem {
 
 	public void setEndColor(Vector4f endColor) {
 		this.endColor = endColor;
+	}
+
+
+	public float getStartSize() {
+		return startSize;
+	}
+
+
+	public void setStartSize(float startSize) {
+		this.startSize = startSize;
+	}
+
+
+	public float getEndSize() {
+		return endSize;
+	}
+
+
+	public void setEndSize(float endSize) {
+		this.endSize = endSize;
 	}
 	
 	
