@@ -10,6 +10,7 @@ import org.joml.Matrix4f;
 import niles.lwjgl.batch.Batch;
 import niles.lwjgl.batch.ParticleSystem;
 import niles.lwjgl.entites.Light;
+import niles.lwjgl.shadows.ShadowModel;
 import niles.lwjgl.util.Shader;
 import niles.lwjgl.world.Camera;
 
@@ -17,12 +18,16 @@ public class BatchRenderer {
 	
 	Shader shader;
 	
+	Shader shadowShader;
+	
 	public BatchRenderer() {
 		shader = new Shader("batch_shader");
+		shadowShader = new Shader("shadow_shader");
 	}
 	
 	public void bindShader() {
 		shader.bind();
+		shadowShader.bind();
 		glUniform1iv(glGetUniformLocation(shader.getProgram(), "sampler"), new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 	}
 	
@@ -31,6 +36,11 @@ public class BatchRenderer {
 	public void renderBatch(Camera camera, Batch batch) {
 		shader.setUniform("projection", camera.getProjection());
 		batch.getVao().render();
+	}
+	
+	public void renderShadow(Camera camera, ShadowModel shadow) {
+		shadowShader.setUniform("projection", camera.getProjection());
+		shadow.render();
 	}
 	
 	public void renderParticles(Camera camera, ParticleSystem particles) {

@@ -11,6 +11,8 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import niles.lwjgl.util.Texture;
@@ -140,6 +142,61 @@ public class Batch {
 		return vertices.get((index * Vertex.size * 4) + Vertex.size * 2) - vertices.get(index * Vertex.size * 4);
 	}
 	
+	public float[] getShadowFromPoint(int index, Vector2f point) {
+		int i = index * Vertex.size * 4;
+		
+		Vector2f vert1 = new Vector2f();
+		vert1.x = vertices.get(i + 0 * Vertex.size + 0);
+		vert1.y = vertices.get(i + 0 * Vertex.size + 1);
+		
+		
+		
+		Vector2f vert2 = new Vector2f();
+		vert2.x = vertices.get(i + 3 * Vertex.size + 0);
+		vert2.y = vertices.get(i + 3 * Vertex.size + 1);
+		System.out.println("vvv   "+vert2.x+"   "+ vert2.y);
+		
+		float dis = point.distance(vert1);
+		float angle1 = (float) Math.asin((point.y - vert1.y) / dis);
+		System.out.println("angle  " + angle1);
+		
+		float dis2 = point.distance(vert2);
+		float angle2 = (float) Math.asin((point.y - vert2.y) / dis2);
+		System.out.println("angle  " + angle2);
+		
+		float shadowDis = 2000;
+		
+		float[] shadow =new float[3 * 4];
+		
+		
+		shadow[0] = vert1.x;
+		shadow[1] = vert1.y;
+		shadow[2] = 0;
+		
+		shadow[3] = vert2.x;
+		shadow[4] = vert2.y;
+		shadow[5] = 0;
+		
+		shadow[6] = (float) (Math.cos(angle1) * -shadowDis);
+		shadow[7] = (float) (Math.sin(angle1) * -shadowDis);
+		shadow[8] = 0;
+		
+		shadow[9] = (float) (Math.cos(angle2) * -shadowDis);
+		shadow[10] = (float) (Math.sin(angle2) * -shadowDis);
+		shadow[11] = 0;
+		
+		//float angle = point.angle(vert1);
+		
+		for(int ii = 0; ii < shadow.length; ii+=3) {
+			System.out.println("");
+			System.out.print(shadow[ii + 0] + "   ");
+			System.out.print(shadow[ii + 1] + "   ");
+			System.out.print(shadow[ii + 2] + "   ");
+		}
+		
+		return shadow;
+		
+	}
 	
 	public void updateMax() {
 		glBindBuffer(GL_ARRAY_BUFFER, vao.getV_id());
