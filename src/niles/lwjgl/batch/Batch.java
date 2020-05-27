@@ -143,28 +143,48 @@ public class Batch {
 	}
 	
 	public float[] getShadowFromPoint(int index, Vector2f point) {
+		
 		int i = index * Vertex.size * 4;
 		
 		Vector2f vert1 = new Vector2f();
 		vert1.x = vertices.get(i + 0 * Vertex.size + 0);
 		vert1.y = vertices.get(i + 0 * Vertex.size + 1);
+		System.out.println("f   "+vert1.x+"   "+ vert1.y);
+		
+		double xdif1 = (point.x - vert1.x);
+		double ydif1 = (point.y - vert1.y);
+		double dis = Math.sqrt((xdif1 * xdif1) + (ydif1 * ydif1));
+		double angle1 = Math.asin((ydif1) / dis);
 		
 		
 		
 		Vector2f vert2 = new Vector2f();
-		vert2.x = vertices.get(i + 3 * Vertex.size + 0);
-		vert2.y = vertices.get(i + 3 * Vertex.size + 1);
-		System.out.println("vvv   "+vert2.x+"   "+ vert2.y);
+		vert2.x = vertices.get(i + 1 * Vertex.size + 0);
+		vert2.y = vertices.get(i + 1 * Vertex.size + 1);
+		System.out.println("s   "+vert2.x+"   "+ vert2.y);
 		
-		float dis = point.distance(vert1);
-		float angle1 = (float) Math.asin((point.y - vert1.y) / dis);
-		System.out.println("angle  " + angle1);
+		double xdif2 = (point.x - vert2.x);
+		double ydif2 = (point.y - vert2.y);
+		double dis2 = Math.sqrt((xdif2 * xdif2) + (ydif2 * ydif2));
+		double angle2 = Math.asin((ydif2) / dis2);
 		
-		float dis2 = point.distance(vert2);
-		float angle2 = (float) Math.asin((point.y - vert2.y) / dis2);
-		System.out.println("angle  " + angle2);
 		
-		float shadowDis = 2000;
+		
+		if(point.x < vert1.x) {
+			angle1 = (float) (angle1 + Math.PI);
+		}
+		else {
+			angle1 = (float) (Math.PI - angle1 + Math.PI);
+		}
+		if(point.x < vert2.x) {
+			angle2 = (float) (angle2 + Math.PI);
+		}
+		else {
+			angle2 = (float) (Math.PI - angle2 + Math.PI);
+		}
+		
+		
+		float shadowDis = 800;
 		
 		float[] shadow =new float[3 * 4];
 		
@@ -177,22 +197,14 @@ public class Batch {
 		shadow[4] = vert2.y;
 		shadow[5] = 0;
 		
-		shadow[6] = (float) (Math.cos(angle1) * -shadowDis);
-		shadow[7] = (float) (Math.sin(angle1) * -shadowDis);
+		shadow[6] = (float) (Math.cos(angle1) * -shadowDis) + vert1.x;
+		shadow[7] = (float) (Math.sin(angle1) * shadowDis) + vert1.y;
 		shadow[8] = 0;
 		
-		shadow[9] = (float) (Math.cos(angle2) * -shadowDis);
-		shadow[10] = (float) (Math.sin(angle2) * -shadowDis);
+		shadow[9] = (float) (Math.cos(angle2) * -shadowDis) + vert2.x;
+		shadow[10] = (float) (Math.sin(angle2) * shadowDis) + vert2.y;
 		shadow[11] = 0;
 		
-		//float angle = point.angle(vert1);
-		
-		for(int ii = 0; ii < shadow.length; ii+=3) {
-			System.out.println("");
-			System.out.print(shadow[ii + 0] + "   ");
-			System.out.print(shadow[ii + 1] + "   ");
-			System.out.print(shadow[ii + 2] + "   ");
-		}
 		
 		return shadow;
 		
