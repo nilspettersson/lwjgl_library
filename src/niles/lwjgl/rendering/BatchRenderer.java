@@ -27,6 +27,10 @@ public class BatchRenderer {
 	
 	public void bindShader() {
 		shader.bind();
+		glUniform1iv(glGetUniformLocation(shader.getProgram(), "sampler"), new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+	}
+	
+	public void bindShadowShader() {
 		shadowShader.bind();
 		glUniform1iv(glGetUniformLocation(shader.getProgram(), "sampler"), new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 	}
@@ -34,11 +38,15 @@ public class BatchRenderer {
 	
 	
 	public void renderBatch(Camera camera, Batch batch) {
+		bindShader();
+		
 		shader.setUniform("projection", camera.getProjection());
 		batch.getVao().render();
 	}
 	
 	public void renderShadow(Camera camera, ShadowModel shadow) {
+		bindShadowShader();
+		
 		shadowShader.setUniform("projection", camera.getProjection());
 		shadow.render();
 	}

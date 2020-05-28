@@ -142,51 +142,54 @@ public class Batch {
 		return vertices.get((index * Vertex.size * 4) + Vertex.size * 2) - vertices.get(index * Vertex.size * 4);
 	}
 	
-	public float[] getShadowFromPoint(int index, Vector2f point) {
+	private Vector2f getVertexPosition(int index, int vertex) {
+		int i = index * Vertex.size * 4;
+		
+		Vector2f vert = new Vector2f();
+		vert.x = vertices.get(i + vertex * Vertex.size + 0);
+		vert.y = vertices.get(i + vertex * Vertex.size + 1);
+		
+		return vert;
+	}
+	
+	private double getAngle(Vector2f vertPosition, Vector2f point) {
+		
+		double xdif = (point.x - vertPosition.x);
+		double ydif = (point.y - vertPosition.y);
+		double dis = Math.sqrt((xdif * xdif) + (ydif * ydif));
+		double angle = Math.asin((ydif) / dis);
+		
+		if(point.x < vertPosition.x) {
+			angle = (float) (angle + Math.PI);
+		}
+		else {
+			angle = (float) (Math.PI - angle + Math.PI);
+		}
+		
+		return angle;
+		
+	}
+	
+	public float[] getShadowFromPoint(int index, Vector2f point, float shadowLength) {
 		
 		int i = index * Vertex.size * 4;
 		
-		Vector2f vert1 = new Vector2f();
-		vert1.x = vertices.get(i + 0 * Vertex.size + 0);
-		vert1.y = vertices.get(i + 0 * Vertex.size + 1);
-		System.out.println("f   "+vert1.x+"   "+ vert1.y);
+		Vector2f vert1 = getVertexPosition(index, 0);
+		double angle1 = getAngle(vert1, point);
 		
-		double xdif1 = (point.x - vert1.x);
-		double ydif1 = (point.y - vert1.y);
-		double dis = Math.sqrt((xdif1 * xdif1) + (ydif1 * ydif1));
-		double angle1 = Math.asin((ydif1) / dis);
+		Vector2f vert2 = getVertexPosition(index, 1);
+		double angle2 = getAngle(vert2, point);
 		
+		Vector2f vert3 = getVertexPosition(index, 2);
+		double angle3 = getAngle(vert3, point);
 		
-		
-		Vector2f vert2 = new Vector2f();
-		vert2.x = vertices.get(i + 1 * Vertex.size + 0);
-		vert2.y = vertices.get(i + 1 * Vertex.size + 1);
-		System.out.println("s   "+vert2.x+"   "+ vert2.y);
-		
-		double xdif2 = (point.x - vert2.x);
-		double ydif2 = (point.y - vert2.y);
-		double dis2 = Math.sqrt((xdif2 * xdif2) + (ydif2 * ydif2));
-		double angle2 = Math.asin((ydif2) / dis2);
+		Vector2f vert4 = getVertexPosition(index, 3);
+		double angle4 = getAngle(vert4, point);
 		
 		
 		
-		if(point.x < vert1.x) {
-			angle1 = (float) (angle1 + Math.PI);
-		}
-		else {
-			angle1 = (float) (Math.PI - angle1 + Math.PI);
-		}
-		if(point.x < vert2.x) {
-			angle2 = (float) (angle2 + Math.PI);
-		}
-		else {
-			angle2 = (float) (Math.PI - angle2 + Math.PI);
-		}
 		
-		
-		float shadowDis = 800;
-		
-		float[] shadow =new float[3 * 4];
+		float[] shadow =new float[3 * 4 * 4];
 		
 		
 		shadow[0] = vert1.x;
@@ -197,13 +200,66 @@ public class Batch {
 		shadow[4] = vert2.y;
 		shadow[5] = 0;
 		
-		shadow[6] = (float) (Math.cos(angle1) * -shadowDis) + vert1.x;
-		shadow[7] = (float) (Math.sin(angle1) * shadowDis) + vert1.y;
+		shadow[6] = (float) (Math.cos(angle1) * -shadowLength) + vert1.x;
+		shadow[7] = (float) (Math.sin(angle1) * shadowLength) + vert1.y;
 		shadow[8] = 0;
 		
-		shadow[9] = (float) (Math.cos(angle2) * -shadowDis) + vert2.x;
-		shadow[10] = (float) (Math.sin(angle2) * shadowDis) + vert2.y;
+		shadow[9] = (float) (Math.cos(angle2) * -shadowLength) + vert2.x;
+		shadow[10] = (float) (Math.sin(angle2) * shadowLength) + vert2.y;
 		shadow[11] = 0;
+		
+		
+		
+		shadow[12] = vert2.x;
+		shadow[13] = vert2.y;
+		shadow[14] = 0;
+		
+		shadow[15] = vert3.x;
+		shadow[16] = vert3.y;
+		shadow[17] = 0;
+		
+		shadow[18] = (float) (Math.cos(angle2) * -shadowLength) + vert2.x;
+		shadow[19] = (float) (Math.sin(angle2) * shadowLength) + vert2.y;
+		shadow[20] = 0;
+		
+		shadow[21] = (float) (Math.cos(angle3) * -shadowLength) + vert3.x;
+		shadow[22] = (float) (Math.sin(angle3) * shadowLength) + vert3.y;
+		shadow[23] = 0;
+		
+		
+		shadow[24] = vert3.x;
+		shadow[25] = vert3.y;
+		shadow[26] = 0;
+		
+		shadow[27] = vert4.x;
+		shadow[28] = vert4.y;
+		shadow[29] = 0;
+		
+		shadow[30] = (float) (Math.cos(angle3) * -shadowLength) + vert3.x;
+		shadow[31] = (float) (Math.sin(angle3) * shadowLength) + vert3.y;
+		shadow[32] = 0;
+		
+		shadow[33] = (float) (Math.cos(angle4) * -shadowLength) + vert4.x;
+		shadow[34] = (float) (Math.sin(angle4) * shadowLength) + vert4.y;
+		shadow[35] = 0;
+		
+		
+		shadow[36] = vert1.x;
+		shadow[37] = vert1.y;
+		shadow[38] = 0;
+		
+		shadow[39] = vert4.x;
+		shadow[40] = vert4.y;
+		shadow[41] = 0;
+		
+		shadow[42] = (float) (Math.cos(angle1) * -shadowLength) + vert1.x;
+		shadow[43] = (float) (Math.sin(angle1) * shadowLength) + vert1.y;
+		shadow[44] = 0;
+		
+		shadow[45] = (float) (Math.cos(angle4) * -shadowLength) + vert4.x;
+		shadow[46] = (float) (Math.sin(angle4) * shadowLength) + vert4.y;
+		shadow[47] = 0;
+		
 		
 		
 		return shadow;
