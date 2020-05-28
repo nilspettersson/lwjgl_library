@@ -22,13 +22,13 @@ public class ShadowModel {
 	private int shadowQuadSize;
 	
 	public ShadowModel(int shadowQuadSize) {
-		
+		shadowQuadSize = shadowQuadSize *4;
 		this.shadowQuadSize = shadowQuadSize;
 				
 		
 		v_id=glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, v_id);
-		glBufferData(GL_ARRAY_BUFFER, 3 * 3 *4 *shadowQuadSize, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 3 * 4 *4 *shadowQuadSize, GL_DYNAMIC_DRAW);
 		
 		
 		
@@ -47,14 +47,6 @@ public class ShadowModel {
 			offset += 4;
 		}
 		
-		/*int[] indices=new int[] {
-				2, 3, 1,
-				0, 1, 2,
-				
-				2 + 4, 3 + 4, 1 + 4,
-				0 + 4, 1 + 4, 2 + 4,
-				
-		};*/
 		
 		draw_count = indices.length;
 		
@@ -84,8 +76,7 @@ public class ShadowModel {
 	public void createShadowFromBatch(Batch batch, Vector2f point, float shadowLength) {
 		int index = 0;
 		
-		float[] vertices = new float[shadowQuadSize];
-		
+		float[] vertices = new float[batch.size() * 4 * 3 * 4];
 		for(int i = 0; i < batch.size(); i++) {
 			float[] temp = batch.getShadowFromPoint(i, point, shadowLength);
 			vertices[index + 0] = temp[0];

@@ -3,6 +3,6 @@
 
 void main(){
 	
-	gl_FragColor = new vec4(0, 0, 0, 0.6);
+	gl_FragColor = new vec4(0, 0, 0, 1);
 	
 }

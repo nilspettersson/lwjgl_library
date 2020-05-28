@@ -29,13 +29,14 @@ public class testing3 extends Game {
 		
 		renderer = new BatchRenderer();
 		
-		batch = new Batch(1);
-		batch.addRect(-400, 300, 100, 100, new Vector4f(1, 0, 0, 1), 0);
-		
+		batch = new Batch(1000);
+		for(int i = 0; i < 300; i++) {
+			batch.addRect((float)(Math.random()*1200)-600, (float)(Math.random()*1200)-600, 40, 40, new Vector4f(1, 0, 0, 1), 0);
+		}
 		
 
 		
-		shadow = new ShadowModel(100);
+		shadow = new ShadowModel(1000000);
 		
 		
 		
