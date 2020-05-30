@@ -2,8 +2,10 @@ package niles.lwjgl.loop;
 
 import org.joml.Vector4f;
 
+import niles.lwjgl.batch.Batch;
+import niles.lwjgl.entites.Light;
 import niles.lwjgl.rendering.BatchRenderer;
-import niles.lwjgl.rendering.Renderer;
+import niles.lwjgl.util.Texture;
 import niles.lwjgl.world.Camera;
 import niles.lwjgl.world.Window;
 
@@ -12,6 +14,8 @@ public abstract class Game {
 	private Window window;
 	private Camera camera;
 	private BatchRenderer renderer;
+	private LayerSystem layers;
+	
 	
 	private Vector4f backgroundColor;
 	private int fpsCap;
@@ -22,6 +26,8 @@ public abstract class Game {
 		
 		this.backgroundColor=backgroundColor;
 		this.fpsCap=fpsCap;
+		
+		
 		
 		loop();
 	}
@@ -42,6 +48,8 @@ public abstract class Game {
 	
 	public void loop() {
 		renderer=new BatchRenderer();
+		layers = new LayerSystem();
+		
 		setup();
 		
 		while(window.shouldUpdate()) {
@@ -55,6 +63,31 @@ public abstract class Game {
 		}
 		
 	}
+	
+	public void render(int layer, boolean updateBuffer) {
+		if(updateBuffer) {
+			layers.getLayers().get(layer).updateBuffer();
+		}
+		renderer.renderBatch(camera, layers.getLayers().get(layer).getBatch());
+	}
+	
+	public void render(int layer, boolean updateBuffer, Light lights) {
+		if(updateBuffer) {
+			layers.getLayers().get(layer).updateBuffer();
+		}
+		renderer.useLights(camera, lights);
+		renderer.renderBatch(camera, layers.getLayers().get(layer).getBatch());
+	}
+	
+	public Layer getLayer(int layer) {
+		return layers.getLayers().get(layer);
+	}
+	
+	
+	public void addLayer(int maxEntities) {
+		layers.getLayers().add(new Layer(maxEntities));
+	}
+	
 
 	public Window getWindow() {
 		return window;

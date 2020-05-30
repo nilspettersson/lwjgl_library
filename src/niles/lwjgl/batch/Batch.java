@@ -142,6 +142,10 @@ public class Batch {
 		return vertices.get((index * Vertex.size * 4) + Vertex.size * 2) - vertices.get(index * Vertex.size * 4);
 	}
 	
+	public float getHeight(int index) {
+		return vertices.get((index * Vertex.size * 4 + 1) + Vertex.size * 2) - vertices.get(index * Vertex.size * 4 + 1);
+	}
+	
 	private Vector2f getVertexPosition(int index, int vertex) {
 		int i = index * Vertex.size * 4;
 		
