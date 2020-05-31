@@ -9,8 +9,11 @@ public class Layer {
 	
 	private Batch batch;
 	
-	public Layer(int entityMax) {
+	private boolean usingLights;
+	
+	public Layer(int entityMax, boolean usingLights) {
 		batch = new Batch(entityMax);
+		this.usingLights = usingLights;
 	}
 	
 	public void updateBuffer() {
@@ -59,6 +62,15 @@ public class Layer {
 	}
 	
 	
+	
+	public boolean isUsingLights() {
+		return usingLights;
+	}
+
+	public void setUsingLights(boolean usingLights) {
+		this.usingLights = usingLights;
+	}
+
 	public Batch getBatch() {
 		return batch;
 	}

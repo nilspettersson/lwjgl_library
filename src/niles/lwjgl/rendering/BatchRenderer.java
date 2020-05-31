@@ -38,7 +38,6 @@ public class BatchRenderer {
 	
 	
 	public void renderBatch(Camera camera, Batch batch) {
-		bindShader();
 		
 		shader.setUniform("projection", camera.getProjection());
 		batch.getVao().render();
@@ -69,6 +68,10 @@ public class BatchRenderer {
 		shader.setUniform("lights", positionsRelative);
 		shader.setUniform("size", lights.getPositions().size());
 		
+	}
+	
+	public void resetLights() {
+		shader.setUniform("size", 0);
 	}
 
 }

@@ -79,7 +79,6 @@ public class Vao {
 		
 		glDrawElements(GL_TRIANGLES, draw_count,GL_UNSIGNED_INT,0);
 		
-		
 	}
 	
 	public static void init() {

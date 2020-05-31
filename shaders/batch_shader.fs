@@ -7,10 +7,10 @@ in vec4 color;
 in float textureId;
 
 
-
 //light locations
 uniform mat4[200] lights;  
 uniform int size;
+
 
 void main(){
 	vec2 l = gl_FragCoord.xy;

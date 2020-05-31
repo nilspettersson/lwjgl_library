@@ -15,6 +15,7 @@ public abstract class Game {
 	private Camera camera;
 	private BatchRenderer renderer;
 	private LayerSystem layers;
+	private Light lights;
 	
 	
 	private Vector4f backgroundColor;
@@ -50,6 +51,8 @@ public abstract class Game {
 		renderer=new BatchRenderer();
 		layers = new LayerSystem();
 		
+		lights = new Light();
+		
 		setup();
 		
 		while(window.shouldUpdate()) {
@@ -65,18 +68,32 @@ public abstract class Game {
 	}
 	
 	public void render(int layer, boolean updateBuffer) {
+		renderer.bindShader();
+		
 		if(updateBuffer) {
 			layers.getLayers().get(layer).updateBuffer();
 		}
+		
+		if(layers.getLayers().get(layer).isUsingLights()) {
+			renderer.useLights(camera, lights);
+		}
+		else {
+			renderer.resetLights();
+		}
+		
 		renderer.renderBatch(camera, layers.getLayers().get(layer).getBatch());
 	}
 	
-	public void render(int layer, boolean updateBuffer, Light lights) {
-		if(updateBuffer) {
-			layers.getLayers().get(layer).updateBuffer();
-		}
-		renderer.useLights(camera, lights);
-		renderer.renderBatch(camera, layers.getLayers().get(layer).getBatch());
+	public void addLight(float x, float y, float z, float intensity, Vector4f color) {
+		lights.addLight(x, y, z, intensity, color);
+	}
+	
+	public void moveLight(int index, float x, float y, float z) {
+		lights.moveTo(index, x, y, z);
+	}
+	
+	public void moveLightRelative(int index, float x, float y, float z) {
+		lights.move(index, x, y, z);
 	}
 	
 	public Layer getLayer(int layer) {
@@ -84,8 +101,8 @@ public abstract class Game {
 	}
 	
 	
-	public void addLayer(int maxEntities) {
-		layers.getLayers().add(new Layer(maxEntities));
+	public void addLayer(int maxEntities, boolean usingLights) {
+		layers.getLayers().add(new Layer(maxEntities, usingLights));
 	}
 	
 
