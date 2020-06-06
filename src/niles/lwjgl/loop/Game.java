@@ -98,13 +98,6 @@ public abstract class Game {
 		lights.addLight(x, y, z, intensity, color);
 	}
 	
-	public void moveLight(int index, float x, float y, float z) {
-		lights.moveTo(index, x, y, z);
-	}
-	
-	public void moveLightRelative(int index, float x, float y, float z) {
-		lights.move(index, x, y, z);
-	}
 	
 	public Layer getLayer(int layer) {
 		return layers.getLayers().get(layer);
@@ -165,6 +158,14 @@ public abstract class Game {
 
 	public void setRenderer(BatchRenderer renderer) {
 		this.renderer = renderer;
+	}
+
+	public Light getLights() {
+		return lights;
+	}
+
+	public void setLights(Light lights) {
+		this.lights = lights;
 	}
 	
 	

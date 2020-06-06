@@ -156,7 +156,7 @@ public class Batch {
 		return vert;
 	}
 	
-	private double getAngle(Vector2f vertPosition, Vector2f point) {
+	private Vector2f getAngle(Vector2f vertPosition, Vector2f point) {
 		
 		double xdif = (point.x - vertPosition.x);
 		double ydif = (point.y - vertPosition.y);
@@ -170,7 +170,7 @@ public class Batch {
 			angle = (float) (Math.PI - angle + Math.PI);
 		}
 		
-		return angle;
+		return new Vector2f((float)angle, (float)dis);
 		
 	}
 	
@@ -179,16 +179,16 @@ public class Batch {
 		int i = index * Vertex.size * 4;
 		
 		Vector2f vert1 = getVertexPosition(index, 0);
-		double angle1 = getAngle(vert1, point);
+		Vector2f angle1 = getAngle(vert1, point);
 		
 		Vector2f vert2 = getVertexPosition(index, 1);
-		double angle2 = getAngle(vert2, point);
+		Vector2f angle2 = getAngle(vert2, point);
 		
 		Vector2f vert3 = getVertexPosition(index, 2);
-		double angle3 = getAngle(vert3, point);
+		Vector2f angle3 = getAngle(vert3, point);
 		
 		Vector2f vert4 = getVertexPosition(index, 3);
-		double angle4 = getAngle(vert4, point);
+		Vector2f angle4 = getAngle(vert4, point);
 		
 		
 		
@@ -204,12 +204,12 @@ public class Batch {
 		shadow[4] = vert2.y;
 		shadow[5] = 0;
 		
-		shadow[6] = (float) (Math.cos(angle1) * -shadowLength) + vert1.x;
-		shadow[7] = (float) (Math.sin(angle1) * shadowLength) + vert1.y;
+		shadow[6] = (float) (Math.cos(angle1.x) * -angle1.y * shadowLength) + vert1.x;
+		shadow[7] = (float) (Math.sin(angle1.x) * angle1.y * shadowLength) + vert1.y;
 		shadow[8] = 0;
 		
-		shadow[9] = (float) (Math.cos(angle2) * -shadowLength) + vert2.x;
-		shadow[10] = (float) (Math.sin(angle2) * shadowLength) + vert2.y;
+		shadow[9] = (float) (Math.cos(angle2.x) * -angle2.y * shadowLength) + vert2.x;
+		shadow[10] = (float) (Math.sin(angle2.x) * angle2.y * shadowLength) + vert2.y;
 		shadow[11] = 0;
 		
 		
@@ -222,12 +222,12 @@ public class Batch {
 		shadow[16] = vert3.y;
 		shadow[17] = 0;
 		
-		shadow[18] = (float) (Math.cos(angle2) * -shadowLength) + vert2.x;
-		shadow[19] = (float) (Math.sin(angle2) * shadowLength) + vert2.y;
+		shadow[18] = (float) (Math.cos(angle2.x) * -angle2.y * shadowLength) + vert2.x;
+		shadow[19] = (float) (Math.sin(angle2.x) * angle2.y * shadowLength) + vert2.y;
 		shadow[20] = 0;
 		
-		shadow[21] = (float) (Math.cos(angle3) * -shadowLength) + vert3.x;
-		shadow[22] = (float) (Math.sin(angle3) * shadowLength) + vert3.y;
+		shadow[21] = (float) (Math.cos(angle3.x) * -angle3.y * shadowLength) + vert3.x;
+		shadow[22] = (float) (Math.sin(angle3.x) * angle3.y * shadowLength) + vert3.y;
 		shadow[23] = 0;
 		
 		
@@ -239,12 +239,12 @@ public class Batch {
 		shadow[28] = vert4.y;
 		shadow[29] = 0;
 		
-		shadow[30] = (float) (Math.cos(angle3) * -shadowLength) + vert3.x;
-		shadow[31] = (float) (Math.sin(angle3) * shadowLength) + vert3.y;
+		shadow[30] = (float) (Math.cos(angle3.x) * -angle3.y * shadowLength) + vert3.x;
+		shadow[31] = (float) (Math.sin(angle3.x) * angle3.y * shadowLength) + vert3.y;
 		shadow[32] = 0;
 		
-		shadow[33] = (float) (Math.cos(angle4) * -shadowLength) + vert4.x;
-		shadow[34] = (float) (Math.sin(angle4) * shadowLength) + vert4.y;
+		shadow[33] = (float) (Math.cos(angle4.x) * -angle4.y * shadowLength) + vert4.x;
+		shadow[34] = (float) (Math.sin(angle4.x) * angle4.y * shadowLength) + vert4.y;
 		shadow[35] = 0;
 		
 		
@@ -256,12 +256,12 @@ public class Batch {
 		shadow[40] = vert4.y;
 		shadow[41] = 0;
 		
-		shadow[42] = (float) (Math.cos(angle1) * -shadowLength) + vert1.x;
-		shadow[43] = (float) (Math.sin(angle1) * shadowLength) + vert1.y;
+		shadow[42] = (float) (Math.cos(angle1.x) * -angle1.y * shadowLength) + vert1.x;
+		shadow[43] = (float) (Math.sin(angle1.x) * angle1.y * shadowLength) + vert1.y;
 		shadow[44] = 0;
 		
-		shadow[45] = (float) (Math.cos(angle4) * -shadowLength) + vert4.x;
-		shadow[46] = (float) (Math.sin(angle4) * shadowLength) + vert4.y;
+		shadow[45] = (float) (Math.cos(angle4.x) * -angle4.y * shadowLength) + vert4.x;
+		shadow[46] = (float) (Math.sin(angle4.x) * angle4.y * shadowLength) + vert4.y;
 		shadow[47] = 0;
 		
 		

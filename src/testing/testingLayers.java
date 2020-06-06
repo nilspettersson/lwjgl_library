@@ -23,11 +23,7 @@ public class testingLayers extends Game{
 
 	@Override
 	public void update() {
-		
-		moveLightRelative(0, -1, 0, 0);
-		
-		
-		
+
 		render(0, true);
 		
 		

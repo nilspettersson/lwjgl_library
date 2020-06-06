@@ -15,16 +15,16 @@ public class test4 extends Game{
 
 	@Override
 	public void setup() {
-		addLight(0, 0, 30, 40f, new Vector4f(1));
+		addLight(0, 0, 60, 400f, new Vector4f(1));
 		
-		addLayer(10000, true);
+		addLayer(100000, true);
 		addLayer(1, true);
 		
 		getLayer(0).addTexture(new Texture("res/floor.png"));
-		for(int i = 0; i < 10; i++) {
-			getLayer(0).addEntity((float)(Math.random()*1000)-500, (float)(Math.random()*1000)-500, 100, 100, new Vector4f(0, 0, 0, 0), 0);
+		for(int i = 0; i < 1000; i++) {
+			getLayer(0).addEntity((float)(Math.random()*1000)-500, (float)(Math.random()*1000)-500, 2, 2, new Vector4f(0, 0, 0, 0), 0);
 		}
-		generateShadows(0, new Vector2f(0), 40);
+		
 		
 		getLayer(1).addEntity(0-1000, +1000, 2000, 2000, new Vector4f(0.6f, 0.6f, 0.6f, 1), 1);
 		
@@ -36,9 +36,15 @@ public class test4 extends Game{
 		//Mouse.isVisible(getWindow(), false);
 		//Mouse.moveCamera(getWindow(), getCamera(), 1);
 		
+		Vector2f p = Mouse.getMousePosition(getWindow(), 1);
+		getLights().setX(0, p.x);
+		getLights().setY(0, -p.y);
 		
 		render(1, true);
+		
+		generateShadows(0, new Vector2f(getLights().getX(0), getLights().getY(0)), 0.08f);
 		renderShadows(0);
+		
 		getLayer(0).bindTextures();
 		render(0, true);
 		

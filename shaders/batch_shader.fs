@@ -25,11 +25,16 @@ void main(){
 		for(int i=0;i<size;i++){
 			float xdif=l.x-lights[i][0][0];
 			float ydif=l.y-lights[i][0][1];
-			dis=(lights[i][0][3]+1)/(sqrt((xdif*xdif)+(ydif*ydif)+(lights[i][0][2]*lights[i][0][2])));
+			dis=(sqrt((xdif*xdif)+(ydif*ydif)+(lights[i][0][2]*lights[i][0][2])));
 			
-			r+=lights[i][1][0]*dis;
-			g+=lights[i][1][1]*dis;
-			b+=lights[i][1][2]*dis;
+			//dis=(lights[i][0][3]+1)/(sqrt((xdif*xdif)+(ydif*ydif)+(lights[i][0][2]*lights[i][0][2])));
+			float attenuation = (lights[i][0][3] * 10) / (4.0 + 1 * dis + 1 * dis * dis);
+			
+			float light = attenuation;
+			
+			r+=lights[i][1][0]*light;
+			g+=lights[i][1][1]*light;
+			b+=lights[i][1][2]*light;
 			
 		}
 		

@@ -26,19 +26,28 @@ public class Light {
 		this.positions = positions;
 	}
 	
+	public float getX(int index) {
+		return positions.get(index).m00;
+	}
+	public float getY(int index) {
+		return positions.get(index).m01;
+	}
 	
-	public void moveTo(int index,float x,float y,float z) {
+	public float getZ(int index) {
+		return positions.get(index).m02;
+	}
+	
+	public void setX(int index, float x) {
 		positions.get(index).m00=x;
+	}
+	
+	public void setY(int index, float y) {
 		positions.get(index).m01=y;
+	}
+	
+	public void setZ(int index, float z) {
 		positions.get(index).m02=z;
 	}
-
-	public void move(int index,float x,float y,float z) {
-		positions.get(index).m00+=x;
-		positions.get(index).m01+=y;
-		positions.get(index).m02+=z;
-	}
-	
 	
 
 }
