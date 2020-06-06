@@ -35,13 +35,15 @@ void main(){
 		
 		int id = int(textureId);
 		vec4 texture=texture2D(sampler[id], tex_coords);
-		gl_FragColor=((vec4(r,g,b,color.w * texture.w) + texture + color-1));
-		
+		//gl_FragColor=((vec4(r,g,b,color.w * texture.w) + (texture + color)-1));
+		gl_FragColor=vec4(texture.x * r, texture.y * g, texture.z * b, 1);
 		
 
 	}
 	else{
-		gl_FragColor = color;
+		int id = int(textureId);
+		vec4 texture=texture2D(sampler[id], tex_coords);
+		gl_FragColor=((vec4(r,g,b,color.w * texture.w) + texture + color-1));
 	}
 	
 

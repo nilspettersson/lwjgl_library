@@ -16,7 +16,7 @@ public class testingLayers extends Game{
 		getLayer(0).addEntity(-100, 200, 300, 300, new Vector4f(1), 0);
 		
 		addLayer(100, false);
-		getLayer(0).addEntity(-600, 200, 200, 200, new Vector4f(1), 0);
+		getLayer(1).addEntity(-600, 200, 200, 200, new Vector4f(1), 0);
 		
 		addLight(400, 0, 100, 50, new Vector4f(1));
 	}
