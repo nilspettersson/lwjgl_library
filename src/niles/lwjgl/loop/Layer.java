@@ -1,19 +1,29 @@
 package niles.lwjgl.loop;
 
+import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import niles.lwjgl.batch.Batch;
+import niles.lwjgl.shadows.ShadowModel;
 import niles.lwjgl.util.Texture;
 
 public class Layer {
 	
 	private Batch batch;
+	private ShadowModel shadows;
 	
 	private boolean usingLights;
 	
 	public Layer(int entityMax, boolean usingLights) {
 		batch = new Batch(entityMax);
 		this.usingLights = usingLights;
+	}
+	
+	public void CreateShadows(Vector2f point, float length) {
+		if(shadows == null) {
+			shadows = new ShadowModel(batch.size() * 4);
+		}
+		shadows.createShadowFromBatch(batch, point, length);
 	}
 	
 	public void updateBuffer() {
@@ -26,6 +36,10 @@ public class Layer {
 	
 	public void addTexture(Texture texture) {
 		getBatch().addTexture(texture);
+	}
+	
+	public void bindTextures() {
+		getBatch().bindTextures();
 	}
 	
 	public void getX(int entity) {
@@ -79,4 +93,12 @@ public class Layer {
 		this.batch = batch;
 	}
 
+	public ShadowModel getShadows() {
+		return shadows;
+	}
+
+	public void setShadows(ShadowModel shadows) {
+		this.shadows = shadows;
+	}
+	
 }

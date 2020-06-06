@@ -1,5 +1,6 @@
 package niles.lwjgl.loop;
 
+import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import niles.lwjgl.batch.Batch;
@@ -83,6 +84,15 @@ public abstract class Game {
 		
 		renderer.renderBatch(camera, layers.getLayers().get(layer).getBatch());
 	}
+	
+	public void renderShadows(int layer) {
+		renderer.renderShadow(getCamera(), layers.getLayers().get(layer).getShadows());
+	}
+	
+	public void generateShadows(int layer, Vector2f point, float length) {
+		layers.getLayers().get(layer).CreateShadows(point, length);
+	}
+	
 	
 	public void addLight(float x, float y, float z, float intensity, Vector4f color) {
 		lights.addLight(x, y, z, intensity, color);
