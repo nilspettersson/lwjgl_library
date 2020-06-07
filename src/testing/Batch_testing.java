@@ -44,10 +44,10 @@ public class Batch_testing extends Game{
 		
 		
 		
-		system = new ParticleSystem(0, 0, 0f, (float)(Math.PI/2), 1f, 20000);
+		system = new ParticleSystem(0, 0, 0f, (float)(Math.PI/2), 1f, 60000);
 		system.setLifeTime(30000);
-		system.setStartColor(new Vector4f(0.4f, 0.4f, 0.5f, 0.4f));
-		system.setEndColor(new Vector4f(1f, 0.9f, 0.7f, 0f));
+		system.setStartColor(new Vector4f(0.4f, 0.4f, 0.7f, 0.4f));
+		system.setEndColor(new Vector4f(1f, 0.8f, 0.6f, 0f));
 		
 		system.setStartSize(16);
 		system.setEndSize(40);
@@ -85,11 +85,11 @@ public class Batch_testing extends Game{
 		renderer.useLights(getCamera(), lights);
 		renderer.renderBatch(getCamera(), objects);*/
 		
-		system.applyForce((float)0, 0f, 0.1f);
-		system.applypull(20000f, Mouse.getMousePosition(getWindow(), 1).x, -Mouse.getMousePosition(getWindow(), 1).y, 0.92, 4, false);
-		system.update(60);
+		system.applyForce((float)0, 0f, 0.2f);
+		system.applypull(20000f, Mouse.getMousePosition(getWindow(), 1).x, -Mouse.getMousePosition(getWindow(), 1).y, 0.92, 10, false);
+		system.update(600);
 		
-		system.mapColorToSpeed(new Vector4f(0.4f, 0.4f, 0.5f, 0.1f), new Vector4f(1f, 0.9f, 0.7f, 0.3f), 3f);
+		system.mapColorToSpeed(new Vector4f(0.3f, 0.3f, 0.4f, 0.1f), new Vector4f(1f, 0.9f, 0.7f, 0.3f), 8f);
 		renderer.renderParticles(getCamera(), system);
 		
 		
