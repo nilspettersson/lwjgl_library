@@ -52,6 +52,12 @@ public class Batch {
 		}
 	}
 	
+	public void unbindTextures() {
+		for(int i = 0; i < textures.size(); i++) {
+			textures.get(i).unBind();
+		}
+	}
+	
 	
 	public void addRect(float x, float y, float width, float height, Vector4f color, int textureId) {
 		Rect rect = new Rect(x, y, width, height, color, textureId);

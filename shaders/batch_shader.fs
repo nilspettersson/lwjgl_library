@@ -50,7 +50,10 @@ void main(){
 	else{
 		int id = int(textureId);
 		vec4 texture=texture2D(sampler[id], tex_coords);
-		gl_FragColor=((vec4(r,g,b,color.w * texture.w) + texture + color-1));
+		
+		vec4 tex = texture;
+		vec4 col = vec4(color.x, color.y, color.z, color.w);
+		gl_FragColor = col + tex;
 	}
 	
 

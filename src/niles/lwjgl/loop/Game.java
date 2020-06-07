@@ -8,7 +8,9 @@ import niles.lwjgl.entites.Light;
 import niles.lwjgl.rendering.BatchRenderer;
 import niles.lwjgl.util.Texture;
 import niles.lwjgl.world.Camera;
+import niles.lwjgl.world.Input;
 import niles.lwjgl.world.Window;
+import static org.lwjgl.glfw.GLFW.*;
 
 public abstract class Game {
 	
@@ -93,6 +95,21 @@ public abstract class Game {
 		layers.getLayers().get(layer).CreateShadows(point, length);
 	}
 	
+	public void renderParticleSystem(int layer) {
+		if(layers.getLayers().get(layer).isUsingLights()) {
+			renderer.useLights(camera, lights);
+		}
+		else {
+			renderer.resetLights();
+		}
+		
+		renderer.renderParticles(getCamera(), layers.getLayers().get(layer).getParticleSystem());
+	}
+	
+	public void CreateParticleSystem(int layer, float x, float y, float initSpeed, float initAngle, float initRandVel, int particleAmount) {
+		layers.getLayers().get(layer).createParticleSystem(x, y, initSpeed, initAngle, initRandVel, particleAmount);
+	}
+	
 	
 	public void addLight(float x, float y, float z, float intensity, Vector4f color) {
 		lights.addLight(x, y, z, intensity, color);
@@ -169,7 +186,9 @@ public abstract class Game {
 	}
 	
 	
-	
+	public Input getInput() {
+		return window.getInput();
+	}
 	
 	
 	

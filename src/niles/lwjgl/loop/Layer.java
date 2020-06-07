@@ -4,6 +4,7 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import niles.lwjgl.batch.Batch;
+import niles.lwjgl.batch.ParticleSystem;
 import niles.lwjgl.shadows.ShadowModel;
 import niles.lwjgl.util.Texture;
 
@@ -11,6 +12,7 @@ public class Layer {
 	
 	private Batch batch;
 	private ShadowModel shadows;
+	private ParticleSystem particleSystem;
 	
 	private boolean usingLights;
 	
@@ -24,6 +26,10 @@ public class Layer {
 			shadows = new ShadowModel(batch.size() * 4);
 		}
 		shadows.createShadowFromBatch(batch, point, length);
+	}
+	
+	public void createParticleSystem(float x, float y, float initSpeed, float initAngle, float initRandVel, int particleAmount) {
+		particleSystem = new ParticleSystem(x, y, initSpeed, initAngle, initRandVel, particleAmount);
 	}
 	
 	public void updateBuffer() {
@@ -41,6 +47,7 @@ public class Layer {
 	public void bindTextures() {
 		getBatch().bindTextures();
 	}
+	
 	
 	public void getX(int entity) {
 		getBatch().getX(entity);
@@ -100,5 +107,15 @@ public class Layer {
 	public void setShadows(ShadowModel shadows) {
 		this.shadows = shadows;
 	}
+
+	public ParticleSystem getParticleSystem() {
+		return particleSystem;
+	}
+
+	public void setParticleSystem(ParticleSystem particleSystem) {
+		this.particleSystem = particleSystem;
+	}
+	
+	
 	
 }

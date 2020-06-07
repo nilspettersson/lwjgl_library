@@ -48,7 +48,7 @@ public class ParticleSystem {
 		endSize = 4;
 		
 		for(int i = 0; i < particleAmount; i++) {
-			particles.addRect(x, y, startSize, startSize, new Vector4f(0), 0);
+			particles.addRect(x, y, startSize, startSize, new Vector4f(0), -1);
 			
 			particleData[i] = new Vector4f(0, 0, 0, 0);
 			
