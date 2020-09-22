@@ -49,12 +49,12 @@ public class Layer {
 	}
 	
 	
-	public void getX(int entity) {
-		getBatch().getX(entity);
+	public float getX(int entity) {
+		return getBatch().getX(entity);
 	}
 	
-	public void getY(int entity) {
-		getBatch().getY(entity);
+	public float getY(int entity) {
+		return getBatch().getY(entity);
 	}
 	
 	public void setX(int entity, float x) {
